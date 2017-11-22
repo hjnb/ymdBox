@@ -1,0 +1,19 @@
+C:\Users\yoshi\AppData\Local\Temporary Projects\ymdBox\bin\Release\ymdBox.dll
+C:\Users\yoshi\AppData\Local\Temporary Projects\ymdBox\bin\Release\ymdBox.pdb
+C:\Users\yoshi\AppData\Local\Temporary Projects\ymdBox\bin\Release\ymdBox.xml
+C:\Users\yoshi\AppData\Local\Temporary Projects\ymdBox\obj\Release\ymdBox.Resources.resources
+C:\Users\yoshi\AppData\Local\Temporary Projects\ymdBox\obj\Release\ymdBox.ymdBox.resources
+C:\Users\yoshi\AppData\Local\Temporary Projects\ymdBox\obj\Release\ymdBox.vbproj.GenerateResource.Cache
+C:\Users\yoshi\AppData\Local\Temporary Projects\ymdBox\obj\Release\ymdBox.dll
+C:\Users\yoshi\AppData\Local\Temporary Projects\ymdBox\obj\Release\ymdBox.xml
+C:\Users\yoshi\AppData\Local\Temporary Projects\ymdBox\obj\Release\ymdBox.pdb
+C:\Users\yoshi\documents\visual studio 2010\Projects\ymdBox\ymdBox\bin\Release\ymdBox.dll
+C:\Users\yoshi\documents\visual studio 2010\Projects\ymdBox\ymdBox\bin\Release\ymdBox.pdb
+C:\Users\yoshi\documents\visual studio 2010\Projects\ymdBox\ymdBox\bin\Release\ymdBox.xml
+C:\Users\yoshi\documents\visual studio 2010\Projects\ymdBox\ymdBox\obj\Release\ymdBox.Resources.resources
+C:\Users\yoshi\documents\visual studio 2010\Projects\ymdBox\ymdBox\obj\Release\ymdBox.ymdBox.resources
+C:\Users\yoshi\documents\visual studio 2010\Projects\ymdBox\ymdBox\obj\Release\ymdBox.vbproj.GenerateResource.Cache
+C:\Users\yoshi\documents\visual studio 2010\Projects\ymdBox\ymdBox\obj\Release\ymdBox.dll
+C:\Users\yoshi\documents\visual studio 2010\Projects\ymdBox\ymdBox\obj\Release\ymdBox.xml
+C:\Users\yoshi\documents\visual studio 2010\Projects\ymdBox\ymdBox\obj\Release\ymdBox.pdb
+C:\Users\yoshi\documents\visual studio 2010\Projects\ymdBox\ymdBox\obj\Release\ymdBox.calendarForm.resources

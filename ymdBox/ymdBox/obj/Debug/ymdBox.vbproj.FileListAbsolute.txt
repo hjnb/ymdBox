@@ -1,0 +1,9 @@
+C:\Users\yoshi\AppData\Local\Temporary Projects\ymdBox\bin\Debug\ymdBox.dll
+C:\Users\yoshi\AppData\Local\Temporary Projects\ymdBox\bin\Debug\ymdBox.pdb
+C:\Users\yoshi\AppData\Local\Temporary Projects\ymdBox\bin\Debug\ymdBox.xml
+C:\Users\yoshi\AppData\Local\Temporary Projects\ymdBox\obj\Debug\ymdBox.Resources.resources
+C:\Users\yoshi\AppData\Local\Temporary Projects\ymdBox\obj\Debug\ymdBox.ymdBox.resources
+C:\Users\yoshi\AppData\Local\Temporary Projects\ymdBox\obj\Debug\ymdBox.vbproj.GenerateResource.Cache
+C:\Users\yoshi\AppData\Local\Temporary Projects\ymdBox\obj\Debug\ymdBox.dll
+C:\Users\yoshi\AppData\Local\Temporary Projects\ymdBox\obj\Debug\ymdBox.xml
+C:\Users\yoshi\AppData\Local\Temporary Projects\ymdBox\obj\Debug\ymdBox.pdb
