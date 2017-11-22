@@ -1,6 +1,10 @@
 ﻿Imports System.Windows.Forms
 Imports System.Drawing
 
+''' <summary>
+''' 年月日入力テキストボックスクラス
+''' </summary>
+''' <remarks></remarks>
 Public Class ymdBox
 
     ''' <summary>
