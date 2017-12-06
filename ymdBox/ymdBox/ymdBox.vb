@@ -55,6 +55,70 @@ Public Class ymdBox
         End Set
     End Property
 
+    Public Property FontSize() As Integer
+        Get
+            Return dateBox.Font.Size
+        End Get
+
+        Set(ByVal value As Integer)
+            'とりあえず仮で9と14だけ
+            If value = 9 Then
+                '9が初期設定状態
+
+                '文字サイズ変更
+                eraBox.Font = New Font("MS UI Gothic", value)
+                monthBox.Font = New Font("MS UI Gothic", value)
+                dateBox.Font = New Font("MS UI Gothic", value)
+                Label1.Font = New Font("MS UI Gothic", value)
+                Label2.Font = New Font("MS UI Gothic", value)
+
+                '全体
+                Me.Size = New Size(86, 20)
+
+                'テキストボックスのサイズ
+                eraBox.Size = New Size(27, 19)
+                monthBox.Size = New Size(21, 19)
+                dateBox.Size = New Size(21, 19)
+
+                'テキストボックスの位置
+                eraBox.Location = New Point(1, 1)
+                monthBox.Location = New Point(37, 1)
+                dateBox.Location = New Point(65, 1)
+
+                'ラベルの位置
+                Label1.Location = New Point(29, 8)
+                Label2.Location = New Point(58, 8)
+
+            ElseIf value = 14 Then
+                '文字サイズ変更
+                eraBox.Font = New Font("MS UI Gothic", value)
+                monthBox.Font = New Font("MS UI Gothic", value)
+                dateBox.Font = New Font("MS UI Gothic", value)
+
+                '全体
+                Me.Size = New Size(110, 30)
+
+                'テキストボックスのサイズ
+                eraBox.Size = New Size(38, 30)
+                monthBox.Size = New Size(28, 30)
+                dateBox.Size = New Size(28, 30)
+
+                'テキストボックスの位置
+                eraBox.Location = New Point(1, 1)
+                monthBox.Location = New Point(47, 1)
+                dateBox.Location = New Point(82, 1)
+
+                'ラベルの位置
+                Label1.Location = New Point(40, 13)
+                Label2.Location = New Point(75, 13)
+
+            Else
+                Return
+            End If
+        End Set
+    End Property
+
+
     ''' <summary>
     ''' 和暦の１文字目（記号）を取得する
     ''' </summary>

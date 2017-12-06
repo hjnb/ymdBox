@@ -170,6 +170,11 @@ ymdBox
 	<param name="sender"></param>
 	<param name="e"></param>
 	<remarks></remarks>
+</member><member name="T:ymdBox.ymdBox">
+	<summary>
+ 年月日入力テキストボックスクラス
+ </summary>
+	<remarks></remarks>
 </member>
 </members>
 </doc>

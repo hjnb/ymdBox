@@ -82,7 +82,7 @@ Partial Class ymdBox
         Me.Controls.Add(Me.monthBox)
         Me.Controls.Add(Me.eraBox)
         Me.Name = "ymdBox"
-        Me.Size = New System.Drawing.Size(86, 20)
+        Me.Size = New System.Drawing.Size(88, 24)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
