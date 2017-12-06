@@ -118,6 +118,26 @@ Public Class ymdBox
         End Set
     End Property
 
+    Public Property FirstLabel() As String
+        Get
+            Return Label1.Text
+        End Get
+
+        Set(ByVal value As String)
+            Label1.Text = value
+        End Set
+    End Property
+
+    Public Property SecondLabel() As String
+        Get
+            Return Label2.Text
+        End Get
+
+        Set(ByVal value As String)
+            Label2.Text = value
+        End Set
+    End Property
+
 
     ''' <summary>
     ''' 和暦の１文字目（記号）を取得する
