@@ -851,4 +851,10 @@ Public Class ymdBox
         eraBox.Select(0, 1)
     End Sub
 
+    Private Sub ymdBox_Load(sender As Object, e As System.EventArgs) Handles Me.Load
+        Me.ContextMenu = New ContextMenu()
+        eraBox.ContextMenu = New ContextMenu()
+        monthBox.ContextMenu = New ContextMenu()
+        dateBox.ContextMenu = New ContextMenu()
+    End Sub
 End Class

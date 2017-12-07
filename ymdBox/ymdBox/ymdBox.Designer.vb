@@ -32,6 +32,7 @@ Partial Class ymdBox
         'eraBox
         '
         Me.eraBox.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.eraBox.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.eraBox.Location = New System.Drawing.Point(1, 1)
         Me.eraBox.MaxLength = 3
         Me.eraBox.Name = "eraBox"
@@ -40,6 +41,7 @@ Partial Class ymdBox
         '
         'monthBox
         '
+        Me.monthBox.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.monthBox.Location = New System.Drawing.Point(37, 1)
         Me.monthBox.MaxLength = 2
         Me.monthBox.Name = "monthBox"
@@ -48,6 +50,7 @@ Partial Class ymdBox
         '
         'dateBox
         '
+        Me.dateBox.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.dateBox.Location = New System.Drawing.Point(65, 1)
         Me.dateBox.MaxLength = 2
         Me.dateBox.Name = "dateBox"
