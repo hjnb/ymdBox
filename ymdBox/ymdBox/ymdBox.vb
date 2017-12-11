@@ -248,6 +248,18 @@ Public Class ymdBox
     End Sub
 
     ''' <summary>
+    ''' 和暦表記(gyy/MM/dd)をテキストボックスへ設定する
+    ''' </summary>
+    ''' <param name="warekiStr"></param>
+    ''' <remarks></remarks>
+    Public Sub setWarakiStr(warekiStr As String)
+        Dim warekiArray As String() = Split(warekiStr, "/")
+        EraText = warekiArray(0)
+        MonthText = warekiArray(1)
+        DateText = warekiArray(2)
+    End Sub
+
+    ''' <summary>
     ''' 入力日付の曜日（日本語）を取得する
     ''' </summary>
     ''' <returns>曜日（日本語）</returns>
