@@ -869,4 +869,19 @@ Public Class ymdBox
         monthBox.ContextMenu = New ContextMenu()
         dateBox.ContextMenu = New ContextMenu()
     End Sub
+
+    Public Function getAge()
+        Dim today As DateTime = DateTime.Today
+        Dim inputDate As String = getADStr()
+        Dim yyyy As Integer = inputDate.Substring(0, 4)
+        Dim MM As Integer = inputDate.Substring(5, 2)
+        Dim dd As Integer = inputDate.Substring(8, 2)
+        Dim age As Integer = today.Year - yyyy
+        '誕生日がまだ来ていなければ、1引く
+        If today.Month < MM OrElse (today.Month = MM AndAlso today.Day < dd) Then
+            age -= 1
+        End If
+
+        Return age
+    End Function
 End Class
