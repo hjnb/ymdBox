@@ -7,6 +7,9 @@ Imports System.Drawing
 ''' <remarks></remarks>
 Public Class ymdBox
 
+    Private Const VALUE_UP As Integer = 1
+    Private Const VALUE_DOWN As Integer = -1
+
     ''' <summary>
     ''' 和暦部分の文字列
     ''' </summary>
@@ -89,6 +92,9 @@ Public Class ymdBox
                 Label1.Location = New Point(29, 8)
                 Label2.Location = New Point(58, 8)
 
+                btnUp.Visible = False
+                btnDown.Visible = False
+
             ElseIf value = 14 Then
                 '文字サイズ変更
                 eraBox.Font = New Font("MS UI Gothic", value)
@@ -96,7 +102,7 @@ Public Class ymdBox
                 dateBox.Font = New Font("MS UI Gothic", value)
 
                 '全体
-                Me.Size = New Size(110, 30)
+                Me.Size = New Size(145, 46)
 
                 'テキストボックスのサイズ
                 eraBox.Size = New Size(38, 30)
@@ -104,13 +110,16 @@ Public Class ymdBox
                 dateBox.Size = New Size(28, 30)
 
                 'テキストボックスの位置
-                eraBox.Location = New Point(1, 1)
-                monthBox.Location = New Point(47, 1)
-                dateBox.Location = New Point(82, 1)
+                eraBox.Location = New Point(1, 10)
+                monthBox.Location = New Point(47, 10)
+                dateBox.Location = New Point(82, 10)
 
                 'ラベルの位置
-                Label1.Location = New Point(40, 13)
-                Label2.Location = New Point(75, 13)
+                Label1.Location = New Point(40, 24)
+                Label2.Location = New Point(75, 24)
+
+                btnUp.Visible = True
+                btnDown.Visible = True
 
             Else
                 Return
@@ -884,4 +893,61 @@ Public Class ymdBox
 
         Return age
     End Function
+
+    Private Function getDateTimeObject(ymdStr As String) As DateTime
+        Dim ymdArray() As String = ymdStr.Split("/")
+        Return New DateTime(CInt(ymdArray(0)), CInt(ymdArray(1)), CInt(ymdArray(2)))
+    End Function
+
+    Private Sub eraTextUpDown()
+
+    End Sub
+
+    Private Sub MonthTextUpDown()
+
+    End Sub
+
+    Private Sub dateTextUpDown(upDown As Integer, selectDigitNum As Integer)
+        Dim currentInputDateTime As DateTime = getDateTimeObject(getADStr())
+        If upDown = VALUE_UP Then
+            '日の増加処理
+            If selectDigitNum = 1 Then
+                '１桁目が選択されている場合
+                Dim plusOneDayDateTime As DateTime = currentInputDateTime.AddDays(1)
+                setADStr(plusOneDayDateTime.ToString("yyyy/MM/dd"))
+            ElseIf selectDigitNum = 2 Then
+                '２桁目が選択されている場合
+                Dim plusTenDayDateTime As DateTime = currentInputDateTime.AddDays(10)
+                setADStr(plusTenDayDateTime.ToString("yyyy/MM/dd"))
+            End If
+        ElseIf upDown = VALUE_DOWN Then
+            '日の減少処理
+            If selectDigitNum = 1 Then
+                '１桁目が選択されている場合
+                Dim minusOneDayDateTime As DateTime = currentInputDateTime.AddDays(-1)
+                setADStr(minusOneDayDateTime.ToString("yyyy/MM/dd"))
+            ElseIf selectDigitNum = 2 Then
+                '２桁目が選択されている場合
+                Dim minusTenDayDateTime As DateTime = currentInputDateTime.AddDays(-10)
+                setADStr(minusTenDayDateTime.ToString("yyyy/MM/dd"))
+            End If
+        End If
+    End Sub
+
+    Private Sub btnUp_MouseDown(sender As Object, e As MouseEventArgs) Handles btnUp.MouseDown
+
+        dateTextUpDown(VALUE_UP, 2)
+    End Sub
+
+    Private Sub btnUp_MouseUp(sender As Object, e As MouseEventArgs) Handles btnUp.MouseUp
+
+    End Sub
+
+    Private Sub btnDown_MouseDown(sender As Object, e As MouseEventArgs) Handles btnDown.MouseDown
+
+    End Sub
+
+    Private Sub btnDown_MouseUp(sender As Object, e As MouseEventArgs) Handles btnDown.MouseUp
+
+    End Sub
 End Class

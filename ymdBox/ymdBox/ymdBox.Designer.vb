@@ -27,6 +27,8 @@ Partial Class ymdBox
         Me.dateBox = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
+        Me.btnUp = New System.Windows.Forms.Button()
+        Me.btnDown = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'eraBox
@@ -75,10 +77,33 @@ Partial Class ymdBox
         Me.Label2.TabIndex = 5
         Me.Label2.Text = "."
         '
+        'btnUp
+        '
+        Me.btnUp.Font = New System.Drawing.Font("MS UI Gothic", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.btnUp.Location = New System.Drawing.Point(120, 0)
+        Me.btnUp.Name = "btnUp"
+        Me.btnUp.Size = New System.Drawing.Size(22, 23)
+        Me.btnUp.TabIndex = 6
+        Me.btnUp.Text = "▲"
+        Me.btnUp.UseVisualStyleBackColor = True
+        Me.btnUp.Visible = False
+        '
+        'btnDown
+        '
+        Me.btnDown.Location = New System.Drawing.Point(120, 22)
+        Me.btnDown.Name = "btnDown"
+        Me.btnDown.Size = New System.Drawing.Size(22, 23)
+        Me.btnDown.TabIndex = 7
+        Me.btnDown.Text = "▼"
+        Me.btnDown.UseVisualStyleBackColor = True
+        Me.btnDown.Visible = False
+        '
         'ymdBox
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.Controls.Add(Me.btnDown)
+        Me.Controls.Add(Me.btnUp)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.dateBox)
@@ -95,5 +120,6 @@ Partial Class ymdBox
     Friend WithEvents dateBox As System.Windows.Forms.TextBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents Label2 As System.Windows.Forms.Label
-
+    Friend WithEvents btnUp As Windows.Forms.Button
+    Friend WithEvents btnDown As Windows.Forms.Button
 End Class
