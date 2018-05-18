@@ -13,6 +13,8 @@ Public Class ymdBox
     'フォーカス位置保持用
     Private focusedTextBoxNum As Integer = 0
 
+    Private focusControlFlg As Boolean = False
+
     '和暦の記号
     Private Const ERA_TAISYO As String = "T" '大正
     Private Const ERA_SYOWA As String = "S" '昭和
@@ -1016,7 +1018,9 @@ Public Class ymdBox
     ''' <param name="e"></param>
     ''' <remarks></remarks>
     Private Sub eraBox_GotFocus(sender As Object, e As System.EventArgs) Handles eraBox.GotFocus
-        'eraBox.Select(0, 1)
+        If focusControlFlg = False Then
+            eraBox.Select(0, 1)
+        End If
         focusedTextBoxNum = 1
     End Sub
 
@@ -1204,7 +1208,9 @@ Public Class ymdBox
             Dim ss As Integer = eraBox.SelectionStart
             eraTextUpDown(VALUE_UP, ss)
             eraBox.Select(ss, 1)
+            focusControlFlg = True
             eraBox.Focus()
+            focusControlFlg = False
         ElseIf focusedTextBoxNum = 2 Then
             '月の増加処理
             Dim ss As Integer = monthBox.SelectionStart
@@ -1232,7 +1238,9 @@ Public Class ymdBox
             Dim ss As Integer = eraBox.SelectionStart
             eraTextUpDown(VALUE_DOWN, ss)
             eraBox.Select(ss, 1)
+            focusControlFlg = True
             eraBox.Focus()
+            focusControlFlg = False
         ElseIf focusedTextBoxNum = 2 Then
             '月の減少処理
             Dim ss As Integer = monthBox.SelectionStart
