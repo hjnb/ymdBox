@@ -64,7 +64,7 @@ ymdBox
  </summary>
 	<param name="ymdStr">設定する西暦表記文字列(yyyy/MM/dd)</param>
 	<remarks></remarks>
-</member><member name="M:ymdBox.ymdBox.setWarakiStr(System.String)">
+</member><member name="M:ymdBox.ymdBox.setWarekiStr(System.String)">
 	<summary>
  和暦表記(gyy/MM/dd)をテキストボックスへ設定する
  </summary>

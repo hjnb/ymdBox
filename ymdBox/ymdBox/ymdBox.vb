@@ -10,6 +10,27 @@ Public Class ymdBox
     Private Const VALUE_UP As Integer = 1
     Private Const VALUE_DOWN As Integer = -1
 
+    'フォーカス位置保持用
+    Private focusedTextBoxNum As Integer = 0
+
+    '和暦の記号
+    Private Const ERA_TAISYO As String = "T" '大正
+    Private Const ERA_SYOWA As String = "S" '昭和
+    Private Const ERA_HEISEI As String = "H" '平成
+    Private Const ERA_X As String = "X" 'まだ未定
+
+    '最小値、最大値
+    Private Const TAISYO_MIN As String = ERA_TAISYO & "01/07/30"
+    Private Const TAISYO_MAX As String = ERA_TAISYO & "15/12/24"
+    Private Const SYOWA_MIN As String = ERA_SYOWA & "01/12/25"
+    Private Const SYOWA_MAX As String = ERA_SYOWA & "64/01/07"
+    Private Const HEISEI_MIN As String = ERA_HEISEI & "01/01/08"
+    Private Const HEISEI_MAX As String = ERA_HEISEI & "31/04/30"
+    Private Const X_MIN As String = ERA_X & "01/05/01"
+    Private Const X_MAX As String = ERA_X & "99/12/31"
+
+    Private _boxType As Integer
+
     ''' <summary>
     ''' 和暦部分の文字列
     ''' </summary>
@@ -58,22 +79,19 @@ Public Class ymdBox
         End Set
     End Property
 
-    Public Property FontSize() As Integer
+    Public Property boxType() As Integer
         Get
-            Return dateBox.Font.Size
+            Return _boxType
         End Get
-
-        Set(ByVal value As Integer)
-            'とりあえず仮で9と14だけ
-            If value = 9 Then
-                '9が初期設定状態
-
+        Set(value As Integer)
+            _boxType = value
+            If value = 0 Then
                 '文字サイズ変更
-                eraBox.Font = New Font("MS UI Gothic", value)
-                monthBox.Font = New Font("MS UI Gothic", value)
-                dateBox.Font = New Font("MS UI Gothic", value)
-                Label1.Font = New Font("MS UI Gothic", value)
-                Label2.Font = New Font("MS UI Gothic", value)
+                eraBox.Font = New Font("MS UI Gothic", 9)
+                monthBox.Font = New Font("MS UI Gothic", 9)
+                dateBox.Font = New Font("MS UI Gothic", 9)
+                Label1.Font = New Font("MS UI Gothic", 9)
+                Label2.Font = New Font("MS UI Gothic", 9)
 
                 '全体
                 Me.Size = New Size(86, 20)
@@ -94,12 +112,80 @@ Public Class ymdBox
 
                 btnUp.Visible = False
                 btnDown.Visible = False
-
-            ElseIf value = 14 Then
+                dayLabel.Visible = False
+            ElseIf value = 1 Then
                 '文字サイズ変更
-                eraBox.Font = New Font("MS UI Gothic", value)
-                monthBox.Font = New Font("MS UI Gothic", value)
-                dateBox.Font = New Font("MS UI Gothic", value)
+                eraBox.Font = New Font("MS UI Gothic", 14)
+                monthBox.Font = New Font("MS UI Gothic", 14)
+                dateBox.Font = New Font("MS UI Gothic", 14)
+
+                '全体
+                Me.Size = New Size(110, 30)
+
+                'テキストボックスのサイズ
+                eraBox.Size = New Size(38, 30)
+                monthBox.Size = New Size(28, 30)
+                dateBox.Size = New Size(28, 30)
+
+                'テキストボックスの位置
+                eraBox.Location = New Point(1, 1)
+                monthBox.Location = New Point(47, 1)
+                dateBox.Location = New Point(82, 1)
+
+                'ラベルの位置
+                Label1.Location = New Point(40, 13)
+                Label2.Location = New Point(75, 13)
+
+                btnUp.Visible = False
+                btnDown.Visible = False
+                dayLabel.Visible = False
+            ElseIf value = 2 Then
+                '文字サイズ変更
+                eraBox.Font = New Font("MS UI Gothic", 9)
+                monthBox.Font = New Font("MS UI Gothic", 9)
+                dateBox.Font = New Font("MS UI Gothic", 9)
+                Label1.Font = New Font("MS UI Gothic", 9)
+                Label2.Font = New Font("MS UI Gothic", 9)
+
+                '全体
+                Me.Size = New Size(110, 34)
+
+                'テキストボックスのサイズ
+                eraBox.Size = New Size(27, 19)
+                monthBox.Size = New Size(21, 19)
+                dateBox.Size = New Size(21, 19)
+
+                'テキストボックスの位置
+                eraBox.Location = New Point(1, 7)
+                monthBox.Location = New Point(37, 7)
+                dateBox.Location = New Point(65, 7)
+
+                'ラベルの位置
+                Label1.Location = New Point(29, 12)
+                Label2.Location = New Point(58, 12)
+
+                'ボタンサイズ
+                btnUp.Size = New Size(15, 17)
+                btnDown.Size = New Size(15, 17)
+
+                'ボタン位置
+                btnUp.Location = New Point(96, 0)
+                btnDown.Location = New Point(96, 16)
+
+                'ボタンフォント
+                btnUp.Font = New Font("MS UI Gothic", 7)
+                btnDown.Font = New Font("MS UI Gothic", 7)
+
+                'ボタン表示
+                btnUp.Visible = True
+                btnDown.Visible = True
+
+                dayLabel.Visible = False
+            ElseIf value = 3 Then
+                '文字サイズ変更
+                eraBox.Font = New Font("MS UI Gothic", 14)
+                monthBox.Font = New Font("MS UI Gothic", 14)
+                dateBox.Font = New Font("MS UI Gothic", 14)
 
                 '全体
                 Me.Size = New Size(145, 46)
@@ -118,35 +204,75 @@ Public Class ymdBox
                 Label1.Location = New Point(40, 24)
                 Label2.Location = New Point(75, 24)
 
+                'ボタンサイズ
+                btnUp.Size = New Size(22, 23)
+                btnDown.Size = New Size(22, 23)
+
+                'ボタン位置
+                btnUp.Location = New Point(120, 0)
+                btnDown.Location = New Point(120, 22)
+
+                'ボタンフォント
+                btnUp.Font = New Font("MS UI Gothic", 9)
+                btnDown.Font = New Font("MS UI Gothic", 9)
+
+                'ボタン表示
                 btnUp.Visible = True
                 btnDown.Visible = True
 
+                dayLabel.Visible = False
+            ElseIf value = 4 Then
+                '文字サイズ変更
+                eraBox.Font = New Font("MS UI Gothic", 9)
+                monthBox.Font = New Font("MS UI Gothic", 9)
+                dateBox.Font = New Font("MS UI Gothic", 9)
+                Label1.Font = New Font("MS UI Gothic", 9)
+                Label2.Font = New Font("MS UI Gothic", 9)
+
+                '全体
+                Me.Size = New Size(145, 34)
+
+                'テキストボックスのサイズ
+                eraBox.Size = New Size(27, 19)
+                monthBox.Size = New Size(21, 19)
+                dateBox.Size = New Size(21, 19)
+
+                'テキストボックスの位置
+                eraBox.Location = New Point(1, 7)
+                monthBox.Location = New Point(37, 7)
+                dateBox.Location = New Point(65, 7)
+
+                'ラベルの位置
+                Label1.Location = New Point(29, 12)
+                Label2.Location = New Point(58, 12)
+
+                '曜日ラベルサイズ、位置
+                dayLabel.Size = New Size(32, 16)
+                dayLabel.Location = New Point(91, 9)
+
+                '曜日ラベル表示
+                dayLabel.Visible = True
+
+                'ボタンサイズ
+                btnUp.Size = New Size(15, 17)
+                btnDown.Size = New Size(15, 17)
+
+                'ボタン位置
+                btnUp.Location = New Point(128, 0)
+                btnDown.Location = New Point(128, 16)
+
+                'ボタンフォント
+                btnUp.Font = New Font("MS UI Gothic", 7)
+                btnDown.Font = New Font("MS UI Gothic", 7)
+
+                'ボタン表示
+                btnUp.Visible = True
+                btnDown.Visible = True
             Else
                 Return
             End If
         End Set
     End Property
-
-    Public Property FirstLabel() As String
-        Get
-            Return Label1.Text
-        End Get
-
-        Set(ByVal value As String)
-            Label1.Text = value
-        End Set
-    End Property
-
-    Public Property SecondLabel() As String
-        Get
-            Return Label2.Text
-        End Get
-
-        Set(ByVal value As String)
-            Label2.Text = value
-        End Set
-    End Property
-
 
     ''' <summary>
     ''' 和暦の１文字目（記号）を取得する
@@ -187,6 +313,8 @@ Public Class ymdBox
             ADStr = (1925 + Integer.Parse(EraText.Substring(1, 2))).ToString
         ElseIf eraChar = "H" Then
             ADStr = (1988 + Integer.Parse(EraText.Substring(1, 2))).ToString
+        ElseIf eraChar = ERA_X Then
+            ADStr = (2018 + Integer.Parse(EraText.Substring(1, 2))).ToString
         End If
 
         ADStr = ADStr & "/" & MonthText & "/" & DateText
@@ -201,6 +329,7 @@ Public Class ymdBox
     ''' <param name="ymdStr">設定する西暦表記文字列(yyyy/MM/dd)</param>
     ''' <remarks></remarks>
     Public Sub setADStr(ByVal ymdStr)
+        clearText()
         Dim ymdArray As String()
         ymdArray = Split(ymdStr, "/")
         Dim yearNum As Integer = Integer.Parse(ymdArray(0))
@@ -212,13 +341,21 @@ Public Class ymdBox
         DateText = dateStr
 
         '西暦から和暦への変換処理
-        If yearNum >= 2019 Then
-            '平成の最終日（予定）
-            EraText = "H30"
-            MonthText = "12"
-            DateText = "31"
+        If yearNum >= 2118 Then
+            setWarekiStr(X_MAX)
+        ElseIf yearNum >= 2020 Then
+            'X２年～
+            convertNum = yearNum - 2018
+            EraText = ERA_X & If(convertNum < 10, "0" & convertNum, "" & convertNum)
+        ElseIf yearNum = 2019 Then
+            '平成３１年orX1年
+            If Integer.Parse(monthStr) <= 4 Then
+                EraText = "H31"
+            Else
+                EraText = ERA_X & "01"
+            End If
         ElseIf yearNum >= 1990 Then
-            '平成
+            '平成２年～
             convertNum = yearNum - 1988
             EraText = "H" & If(convertNum < 10, "0" & convertNum, "" & convertNum)
         ElseIf yearNum = 1989 Then
@@ -229,7 +366,7 @@ Public Class ymdBox
                 EraText = "H01"
             End If
         ElseIf yearNum >= 1927 Then
-            '昭和
+            '昭和２年～
             convertNum = yearNum - 1925
             EraText = "S" & If(convertNum < 10, "0" & convertNum, "" & convertNum)
         ElseIf yearNum = 1926 Then
@@ -240,7 +377,7 @@ Public Class ymdBox
                 EraText = "T15"
             End If
         ElseIf yearNum >= 1913 Then
-            '大正
+            '大正２年～
             convertNum = yearNum - 1911
             EraText = "T" & If(convertNum < 10, "0" & convertNum, "" & convertNum)
         ElseIf yearNum <= 1912 Then
@@ -261,7 +398,8 @@ Public Class ymdBox
     ''' </summary>
     ''' <param name="warekiStr"></param>
     ''' <remarks></remarks>
-    Public Sub setWarakiStr(warekiStr As String)
+    Public Sub setWarekiStr(warekiStr As String)
+        clearText()
         Dim warekiArray As String() = Split(warekiStr, "/")
         EraText = warekiArray(0)
         MonthText = warekiArray(1)
@@ -283,8 +421,8 @@ Public Class ymdBox
 
         Dim ymdStr As String = getADStr()
         Dim yearNum As Integer = Integer.Parse(ymdStr.Substring(0, 4))
-        Dim monthNum As Integer = Integer.Parse(ymdStr.Substring(4, 2))
-        Dim dateNum As Integer = Integer.Parse(ymdStr.Substring(6, 2))
+        Dim monthNum As Integer = Integer.Parse(ymdStr.Substring(5, 2))
+        Dim dateNum As Integer = Integer.Parse(ymdStr.Substring(8, 2))
         Dim dateTime As DateTime = New DateTime(yearNum, monthNum, dateNum)
 
         '短縮表記の曜日を取得（例：月）
@@ -315,47 +453,27 @@ Public Class ymdBox
 
         If selectedIndex = 0 Then
             '1文字目（和暦の記号）
-            If eraBox.Text.Length = 0 Then
+            If e.KeyCode = Keys.Right Then
+                eraBox.Select(1, 1)
+                e.SuppressKeyPress = True
+            ElseIf e.KeyCode = Keys.T OrElse e.KeyCode = Keys.S OrElse e.KeyCode = Keys.H OrElse e.KeyCode = Asc(ERA_X) Then
                 If e.KeyCode = Keys.T Then
                     '大正の初期値を設定
-                    EraText = "T01"
-                    MonthText = "07"
-                    DateText = "30"
+                    setWarekiStr(TAISYO_MIN)
                 ElseIf e.KeyCode = Keys.S Then
                     '昭和の初期値を設定
-                    EraText = "S01"
-                    MonthText = "12"
-                    DateText = "25"
+                    setWarekiStr(SYOWA_MIN)
                 ElseIf e.KeyCode = Keys.H Then
                     '平成の初期値を設定
-                    EraText = "H01"
-                    MonthText = "01"
-                    DateText = "08"
+                    setWarekiStr(HEISEI_MIN)
+                ElseIf e.KeyCode = Asc(ERA_X) Then
+                    'Xの初期値を設定
+                    setWarekiStr(X_MIN)
                 End If
                 eraBox.Select(1, 1)
                 e.SuppressKeyPress = True
             Else
-                If e.KeyCode = Keys.Right Then
-                    eraBox.Select(1, 1)
-                    e.SuppressKeyPress = True
-                ElseIf e.KeyCode = Keys.T OrElse e.KeyCode = Keys.S OrElse e.KeyCode = Keys.H Then
-                    Dim daysNum As Integer = getMonthDaysNum(Chr(e.KeyCode) & getEraNumStr(), MonthText)
-                    If Integer.Parse(DateText) > daysNum Then
-                        DateText = "" & daysNum
-                    End If
-
-                    '入力された年月日が存在するかチェック
-                    If checkDate(Chr(e.KeyCode) & getEraNumStr(), MonthText, DateText) = True Then
-                        EraText = Chr(e.KeyCode) & getEraNumStr()
-                    Else
-                        '存在しない場合は変換処理
-                        convertEraText(Chr(e.KeyCode) & getEraNumStr(), MonthText, DateText)
-                    End If
-                    eraBox.Select(1, 1)
-                    e.SuppressKeyPress = True
-                Else
-                    e.SuppressKeyPress = True
-                End If
+                e.SuppressKeyPress = True
             End If
         ElseIf selectedIndex = 1 Then
             '記号取得
@@ -647,7 +765,7 @@ Public Class ymdBox
                 Return False
             End If
         ElseIf eraChar = "H" Then
-            '平成の判定（平成１年１月８日～平成３０年１２月３１日)
+            '平成の判定（平成１年１月８日～平成３1年４月３０日)
             If eraNum = 1 Then
                 If monthNum = 1 Then
                     If dateNum < 8 Then
@@ -660,8 +778,25 @@ Public Class ymdBox
                 End If
             ElseIf 2 <= eraNum AndAlso eraNum <= 30 Then
                 Return True
+            ElseIf eraNum = 31 Then
+                If monthNum < 5 Then
+                    Return True
+                Else
+                    Return False
+                End If
             Else
                 Return False
+            End If
+        ElseIf eraChar = ERA_X Then
+            'Xの判定（X１年５月１日～X９９年１２月３１日）
+            If eraNum = 1 Then
+                If monthNum < 5 Then
+                    Return False
+                Else
+                    Return True
+                End If
+            Else
+                Return True
             End If
         Else
             Return False
@@ -681,14 +816,19 @@ Public Class ymdBox
         Dim monthNum As String = Integer.Parse(monthStr)
         Dim dateNum As String = Integer.Parse(dateStr)
 
-        If eraChar = "H" Then
+        If eraChar = ERA_X Then
+            If eraNum = 1 Then
+                EraText = "H31"
+            End If
+        ElseIf eraChar = "H" Then
             If eraNum = 1 Then
                 EraText = "S64"
                 DateText = dateStr
-            ElseIf 31 <= eraNum Then
-                EraText = "H30"
-                MonthText = "12"
-                DateText = "31"
+            ElseIf eraNum = 31 Then
+                EraText = ERA_X & "01"
+            ElseIf 32 <= eraNum Then
+                Dim nextEraNum As Integer = eraNum - 31 + 1
+                EraText = ERA_X & If(nextEraNum >= 10, "" & nextEraNum, "0" & nextEraNum)
             End If
         ElseIf eraChar = "S" Then
             If eraNum = 1 Then
@@ -699,12 +839,17 @@ Public Class ymdBox
                 DateText = dateStr
             ElseIf 65 <= eraNum Then
                 Dim nextEraNum As Integer = eraNum - 64 + 1
-                If nextEraNum >= 31 Then
-                    EraText = "H30"
-                    MonthText = "12"
-                    DateText = "31"
-                Else
+                If nextEraNum <= 30 Then
                     EraText = "H" & If(nextEraNum >= 10, "" & nextEraNum, "0" & nextEraNum)
+                ElseIf nextEraNum = 31 Then
+                    If monthNum < 5 Then
+                        EraText = "H31"
+                    Else
+                        EraText = ERA_X & "01"
+                    End If
+                Else
+                    Dim nextNextEraNum As Integer = nextEraNum - 30
+                    EraText = ERA_X & If(nextNextEraNum >= 10, "" & nextNextEraNum, "0" & nextNextEraNum)
                 End If
             End If
         ElseIf eraChar = "T" Then
@@ -714,7 +859,7 @@ Public Class ymdBox
             ElseIf eraNum = 15 Then
                 EraText = "S01"
                 DateText = dateStr
-            ElseIf 15 <= eraNum Then
+            ElseIf 16 <= eraNum Then
                 Dim nextEraNum As Integer = eraNum - 15 + 1
                 If nextEraNum <= 63 Then
                     EraText = "S" & If(nextEraNum >= 10, "" & nextEraNum, "0" & nextEraNum)
@@ -755,6 +900,8 @@ Public Class ymdBox
             AD = 1925 + eraStrNum
         ElseIf eraChar = "H" Then
             AD = 1988 + eraStrNum
+        ElseIf eraChar = ERA_X Then
+            AD = 2018 + eraStrNum
         End If
 
         daysNum = Date.DaysInMonth(AD, monthStrNum)
@@ -869,7 +1016,16 @@ Public Class ymdBox
     ''' <param name="e"></param>
     ''' <remarks></remarks>
     Private Sub eraBox_GotFocus(sender As Object, e As System.EventArgs) Handles eraBox.GotFocus
-        eraBox.Select(0, 1)
+        'eraBox.Select(0, 1)
+        focusedTextBoxNum = 1
+    End Sub
+
+    Private Sub monthBox_GotFocus(sender As Object, e As System.EventArgs) Handles monthBox.GotFocus
+        focusedTextBoxNum = 2
+    End Sub
+
+    Private Sub dateBox_GotFocus(sender As Object, e As System.EventArgs) Handles dateBox.GotFocus
+        focusedTextBoxNum = 3
     End Sub
 
     Private Sub ymdBox_Load(sender As Object, e As System.EventArgs) Handles Me.Load
@@ -877,6 +1033,9 @@ Public Class ymdBox
         eraBox.ContextMenu = New ContextMenu()
         monthBox.ContextMenu = New ContextMenu()
         dateBox.ContextMenu = New ContextMenu()
+
+        Timer1.Interval = 500
+        Timer2.Interval = 500
     End Sub
 
     Public Function getAge()
@@ -899,55 +1058,229 @@ Public Class ymdBox
         Return New DateTime(CInt(ymdArray(0)), CInt(ymdArray(1)), CInt(ymdArray(2)))
     End Function
 
-    Private Sub eraTextUpDown()
-
-    End Sub
-
-    Private Sub MonthTextUpDown()
-
-    End Sub
-
-    Private Sub dateTextUpDown(upDown As Integer, selectDigitNum As Integer)
+    Private Sub eraTextUpDown(upDown As Integer, selectionStart As Integer)
         Dim currentInputDateTime As DateTime = getDateTimeObject(getADStr())
         If upDown = VALUE_UP Then
-            '日の増加処理
-            If selectDigitNum = 1 Then
-                '１桁目が選択されている場合
-                Dim plusOneDayDateTime As DateTime = currentInputDateTime.AddDays(1)
-                setADStr(plusOneDayDateTime.ToString("yyyy/MM/dd"))
-            ElseIf selectDigitNum = 2 Then
-                '２桁目が選択されている場合
-                Dim plusTenDayDateTime As DateTime = currentInputDateTime.AddDays(10)
-                setADStr(plusTenDayDateTime.ToString("yyyy/MM/dd"))
+            '年の増加処理
+            If selectionStart = 0 Then
+                '記号が選択されている場合
+                If getEraChar() = "T" Then
+                    setWarekiStr(SYOWA_MIN)
+                ElseIf getEraChar() = "S" Then
+                    setWarekiStr(HEISEI_MIN)
+                ElseIf getEraChar() = "H" Then
+                    setWarekiStr(X_MIN)
+                End If
+            ElseIf selectionStart = 1 Then
+                '10の位が選択されている場合、10年増加
+                Dim plusTenYearDateTime As DateTime = currentInputDateTime.AddYears(10)
+                setADStr(plusTenYearDateTime.ToString("yyyy/MM/dd"))
+            ElseIf selectionStart = 2 Then
+                '1の位が選択されている場合、1年増加
+                Dim plusOneYearDateTime As DateTime = currentInputDateTime.AddYears(1)
+                setADStr(plusOneYearDateTime.ToString("yyyy/MM/dd"))
             End If
         ElseIf upDown = VALUE_DOWN Then
-            '日の減少処理
-            If selectDigitNum = 1 Then
-                '１桁目が選択されている場合
-                Dim minusOneDayDateTime As DateTime = currentInputDateTime.AddDays(-1)
-                setADStr(minusOneDayDateTime.ToString("yyyy/MM/dd"))
-            ElseIf selectDigitNum = 2 Then
-                '２桁目が選択されている場合
-                Dim minusTenDayDateTime As DateTime = currentInputDateTime.AddDays(-10)
-                setADStr(minusTenDayDateTime.ToString("yyyy/MM/dd"))
+            '年の減少処理
+            If selectionStart = 0 Then
+                '記号が選択されている場合
+                If getEraChar() = "S" Then
+                    setWarekiStr(TAISYO_MIN)
+                ElseIf getEraChar() = "H" Then
+                    setWarekiStr(SYOWA_MIN)
+                ElseIf getEraChar() = ERA_X Then
+                    setWarekiStr(HEISEI_MIN)
+                End If
+            ElseIf selectionStart = 1 Then
+                '10の位が選択されている場合、10年減少
+                Dim minusTenYearDateTime As DateTime = currentInputDateTime.AddYears(-10)
+                setADStr(minusTenYearDateTime.ToString("yyyy/MM/dd"))
+            ElseIf selectionStart = 2 Then
+                '1の位が選択されている場合、1年減少
+                Dim minusOneYearDateTime As DateTime = currentInputDateTime.AddYears(-1)
+                setADStr(minusOneYearDateTime.ToString("yyyy/MM/dd"))
             End If
         End If
     End Sub
 
-    Private Sub btnUp_MouseDown(sender As Object, e As MouseEventArgs) Handles btnUp.MouseDown
+    Private Sub monthTextUpDown(upDown As Integer, selectionStart As Integer)
+        Dim currentInputDateTime As DateTime = getDateTimeObject(getADStr())
+        Dim firstMonthStr As String = MonthText.Substring(0, 1)
+        Dim secondMonthStr As String = MonthText.Substring(1, 1)
+        If upDown = VALUE_UP Then
+            '月の増加処理
+            If selectionStart = 0 Then
+                '10の位が選択されている場合
+                Dim plusMonthDateTime As DateTime
+                If firstMonthStr = "0" Then
+                    If secondMonthStr = "1" OrElse secondMonthStr = "2" Then
+                        plusMonthDateTime = currentInputDateTime.AddMonths(10)
+                    Else
+                        plusMonthDateTime = currentInputDateTime.AddMonths(12 - CInt(secondMonthStr))
+                    End If
+                ElseIf firstMonthStr = "1" Then
+                    If secondMonthStr = "0" Then
+                        plusMonthDateTime = currentInputDateTime.AddMonths(3)
+                    ElseIf secondMonthStr = "1" OrElse secondMonthStr = "2" Then
+                        plusMonthDateTime = currentInputDateTime.AddMonths(2)
+                    End If
+                End If
+                setADStr(plusMonthDateTime.ToString("yyyy/MM/dd"))
+            ElseIf selectionStart = 1 Then
+                '1の位が選択されている場合、1ヶ月増加
+                Dim plusOneMonthDateTime As DateTime = currentInputDateTime.AddMonths(1)
+                setADStr(plusOneMonthDateTime.ToString("yyyy/MM/dd"))
+            End If
+        ElseIf upDown = VALUE_DOWN Then
+            '月の減少処理
+            If selectionStart = 0 Then
+                '10の位が選択されている場合
+                Dim minusMonthDateTime As DateTime
+                If firstMonthStr = "0" Then
+                    If secondMonthStr = "1" OrElse secondMonthStr = "2" Then
+                        minusMonthDateTime = currentInputDateTime.AddMonths(-2)
+                    Else
+                        minusMonthDateTime = currentInputDateTime.AddMonths(-CInt(secondMonthStr))
+                    End If
+                ElseIf firstMonthStr = "1" Then
+                    If secondMonthStr = "0" Then
+                        minusMonthDateTime = currentInputDateTime.AddMonths(-9)
+                    ElseIf secondMonthStr = "1" OrElse secondMonthStr = "2" Then
+                        minusMonthDateTime = currentInputDateTime.AddMonths(-10)
+                    End If
+                End If
+                setADStr(minusMonthDateTime.ToString("yyyy/MM/dd"))
+            ElseIf selectionStart = 1 Then
+                '1の位が選択されている場合、1ヶ月減少
+                Dim minusOneMonthDateTime As DateTime = currentInputDateTime.AddMonths(-1)
+                setADStr(minusOneMonthDateTime.ToString("yyyy/MM/dd"))
+            End If
+        End If
+    End Sub
 
-        dateTextUpDown(VALUE_UP, 2)
+    Private Sub dateTextUpDown(upDown As Integer, selectionStart As Integer)
+        Dim currentInputDateTime As DateTime = getDateTimeObject(getADStr())
+        If upDown = VALUE_UP Then
+            '日の増加処理
+            If selectionStart = 0 Then
+                '10の位が選択されている場合
+                Dim dateNum As Integer = CInt(DateText)
+                Dim secondDateStrNum As Integer = CInt(DateText.Substring(1, 1))
+                Dim plusDayDateTime As DateTime
+                Dim daysOfMonth As Integer = getMonthDaysNum(EraText, MonthText)
+                If dateNum + 10 > daysOfMonth Then
+                    plusDayDateTime = currentInputDateTime.AddDays(daysOfMonth - dateNum + secondDateStrNum)
+                Else
+                    plusDayDateTime = currentInputDateTime.AddDays(10)
+                End If
+                setADStr(plusDayDateTime.ToString("yyyy/MM/dd"))
+            ElseIf selectionStart = 1 Then
+                '1の位が選択されている場合、1日増加
+                Dim plusOneDayDateTime As DateTime = currentInputDateTime.AddDays(1)
+                setADStr(plusOneDayDateTime.ToString("yyyy/MM/dd"))
+            End If
+        ElseIf upDown = VALUE_DOWN Then
+            '日の減少処理
+            If selectionStart = 0 Then
+                '10の位が選択されている場合、10日減少
+                '後でちゃんとした動きに修正する
+                Dim minusTenDayDateTime As DateTime = currentInputDateTime.AddDays(-10)
+                setADStr(minusTenDayDateTime.ToString("yyyy/MM/dd"))
+            ElseIf selectionStart = 1 Then
+                '1の位が選択されている場合、1日減少
+                Dim minusOneDayDateTime As DateTime = currentInputDateTime.AddDays(-1)
+                setADStr(minusOneDayDateTime.ToString("yyyy/MM/dd"))
+            End If
+        End If
+    End Sub
+
+    Private Sub upText()
+        If EraText = "" Then
+            Return
+        End If
+
+        If focusedTextBoxNum = 1 Then
+            '和暦の増加処理
+            Dim ss As Integer = eraBox.SelectionStart
+            eraTextUpDown(VALUE_UP, ss)
+            eraBox.Select(ss, 1)
+            eraBox.Focus()
+        ElseIf focusedTextBoxNum = 2 Then
+            '月の増加処理
+            Dim ss As Integer = monthBox.SelectionStart
+            monthTextUpDown(VALUE_UP, ss)
+            monthBox.Select(ss, 1)
+            monthBox.Focus()
+        ElseIf focusedTextBoxNum = 3 Then
+            '日の増加処理
+            Dim ss As Integer = dateBox.SelectionStart
+            dateTextUpDown(VALUE_UP, ss)
+            dateBox.Select(ss, 1)
+            dateBox.Focus()
+        Else
+            Return
+        End If
+    End Sub
+
+    Private Sub downText()
+        If EraText = "" Then
+            Return
+        End If
+
+        If focusedTextBoxNum = 1 Then
+            '和暦の減少処理
+            Dim ss As Integer = eraBox.SelectionStart
+            eraTextUpDown(VALUE_DOWN, ss)
+            eraBox.Select(ss, 1)
+            eraBox.Focus()
+        ElseIf focusedTextBoxNum = 2 Then
+            '月の減少処理
+            Dim ss As Integer = monthBox.SelectionStart
+            monthTextUpDown(VALUE_DOWN, ss)
+            monthBox.Select(ss, 1)
+            monthBox.Focus()
+        ElseIf focusedTextBoxNum = 3 Then
+            '日の減少処理
+            Dim ss As Integer = dateBox.SelectionStart
+            dateTextUpDown(VALUE_DOWN, ss)
+            dateBox.Select(ss, 1)
+            dateBox.Focus()
+        Else
+            Return
+        End If
+    End Sub
+
+    Private Sub btnUp_MouseDown(sender As Object, e As MouseEventArgs) Handles btnUp.MouseDown
+        upText()
+        Timer1.Start()
     End Sub
 
     Private Sub btnUp_MouseUp(sender As Object, e As MouseEventArgs) Handles btnUp.MouseUp
-
+        Timer1.Stop()
+        Timer1.Interval = 500
     End Sub
 
     Private Sub btnDown_MouseDown(sender As Object, e As MouseEventArgs) Handles btnDown.MouseDown
-
+        downText()
+        Timer2.Start()
     End Sub
 
     Private Sub btnDown_MouseUp(sender As Object, e As MouseEventArgs) Handles btnDown.MouseUp
+        Timer2.Stop()
+        Timer2.Interval = 500
+    End Sub
 
+    Private Sub Timer1_Tick(sender As Object, e As System.EventArgs) Handles Timer1.Tick
+        Timer1.Interval = 100
+        upText()
+    End Sub
+
+    Private Sub Timer2_Tick(sender As Object, e As System.EventArgs) Handles Timer2.Tick
+        Timer2.Interval = 100
+        downText()
+    End Sub
+
+    Private Sub textBox_TextChanged(sender As Object, e As System.EventArgs) Handles eraBox.TextChanged, monthBox.TextChanged, dateBox.TextChanged
+        dayLabel.Text = "(" & getDay() & ")"
     End Sub
 End Class
