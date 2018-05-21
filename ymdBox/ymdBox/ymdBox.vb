@@ -33,6 +33,8 @@ Public Class ymdBox
 
     Private _boxType As Integer
 
+    Public Event LabelTextChage(ByVal sender As Object, ByVal e As EventArgs)
+
     ''' <summary>
     ''' 和暦部分の文字列
     ''' </summary>
@@ -81,6 +83,26 @@ Public Class ymdBox
         End Set
     End Property
 
+    Public Property EraLabelText() As String
+        Get
+            Return eraLabel.Text
+        End Get
+
+        Set(ByVal value As String)
+            eraLabel.Text = value
+        End Set
+    End Property
+
+    Public Property MonthLabelText() As String
+        Get
+            Return monthLabel.Text
+        End Get
+
+        Set(ByVal value As String)
+            monthLabel.Text = value
+        End Set
+    End Property
+
     Public Property boxType() As Integer
         Get
             Return _boxType
@@ -112,9 +134,20 @@ Public Class ymdBox
                 Label1.Location = New Point(29, 8)
                 Label2.Location = New Point(58, 8)
 
+                '表示、非表示
+                eraBox.Visible = True
+                monthBox.Visible = True
+                dateBox.Visible = True
+                Label1.Visible = True
+                Label2.Visible = True
                 btnUp.Visible = False
                 btnDown.Visible = False
                 dayLabel.Visible = False
+                eraLabel.Visible = False
+                monthLabel.Visible = False
+                Label3.Visible = False
+                btnMonthUp.Visible = False
+                btnMonthDown.Visible = False
             ElseIf value = 1 Then
                 '文字サイズ変更
                 eraBox.Font = New Font("MS UI Gothic", 14)
@@ -138,9 +171,20 @@ Public Class ymdBox
                 Label1.Location = New Point(40, 13)
                 Label2.Location = New Point(75, 13)
 
+                '表示、非表示
+                eraBox.Visible = True
+                monthBox.Visible = True
+                dateBox.Visible = True
+                Label1.Visible = True
+                Label2.Visible = True
                 btnUp.Visible = False
                 btnDown.Visible = False
                 dayLabel.Visible = False
+                eraLabel.Visible = False
+                monthLabel.Visible = False
+                Label3.Visible = False
+                btnMonthUp.Visible = False
+                btnMonthDown.Visible = False
             ElseIf value = 2 Then
                 '文字サイズ変更
                 eraBox.Font = New Font("MS UI Gothic", 9)
@@ -178,11 +222,20 @@ Public Class ymdBox
                 btnUp.Font = New Font("MS UI Gothic", 7)
                 btnDown.Font = New Font("MS UI Gothic", 7)
 
-                'ボタン表示
+                '表示、非表示
+                eraBox.Visible = True
+                monthBox.Visible = True
+                dateBox.Visible = True
+                Label1.Visible = True
+                Label2.Visible = True
                 btnUp.Visible = True
                 btnDown.Visible = True
-
                 dayLabel.Visible = False
+                eraLabel.Visible = False
+                monthLabel.Visible = False
+                Label3.Visible = False
+                btnMonthUp.Visible = False
+                btnMonthDown.Visible = False
             ElseIf value = 3 Then
                 '文字サイズ変更
                 eraBox.Font = New Font("MS UI Gothic", 14)
@@ -218,11 +271,20 @@ Public Class ymdBox
                 btnUp.Font = New Font("MS UI Gothic", 9)
                 btnDown.Font = New Font("MS UI Gothic", 9)
 
-                'ボタン表示
+                '表示、非表示
+                eraBox.Visible = True
+                monthBox.Visible = True
+                dateBox.Visible = True
+                Label1.Visible = True
+                Label2.Visible = True
                 btnUp.Visible = True
                 btnDown.Visible = True
-
                 dayLabel.Visible = False
+                eraLabel.Visible = False
+                monthLabel.Visible = False
+                Label3.Visible = False
+                btnMonthUp.Visible = False
+                btnMonthDown.Visible = False
             ElseIf value = 4 Then
                 '文字サイズ変更
                 eraBox.Font = New Font("MS UI Gothic", 9)
@@ -252,9 +314,6 @@ Public Class ymdBox
                 dayLabel.Size = New Size(32, 16)
                 dayLabel.Location = New Point(91, 9)
 
-                '曜日ラベル表示
-                dayLabel.Visible = True
-
                 'ボタンサイズ
                 btnUp.Size = New Size(15, 17)
                 btnDown.Size = New Size(15, 17)
@@ -267,9 +326,65 @@ Public Class ymdBox
                 btnUp.Font = New Font("MS UI Gothic", 7)
                 btnDown.Font = New Font("MS UI Gothic", 7)
 
-                'ボタン表示
+                '表示、非表示
+                eraBox.Visible = True
+                monthBox.Visible = True
+                dateBox.Visible = True
+                Label1.Visible = True
+                Label2.Visible = True
                 btnUp.Visible = True
                 btnDown.Visible = True
+                dayLabel.Visible = True
+                eraLabel.Visible = False
+                monthLabel.Visible = False
+                Label3.Visible = False
+                btnMonthUp.Visible = False
+                btnMonthDown.Visible = False
+            ElseIf value = 5 Then
+                '全体
+                Me.Size = New Size(95, 40)
+
+                'ラベルサイズ
+                eraLabel.Size = New Size(44, 19)
+                monthLabel.Size = New Size(44, 19)
+                Label3.Size = New Size(7, 12)
+
+                'ラベル位置
+                eraLabel.Location = New Point(1, 11)
+                Label3.Location = New Point(35, 16)
+                monthLabel.Location = New Point(40, 11)
+
+                'ラベルフォント
+                eraLabel.Font = New Font("MS UI Gothic", 14)
+                monthLabel.Font = New Font("MS UI Gothic", 14)
+                Label3.Font = New Font("MS UI Gothic", 9)
+
+                'ボタンサイズ
+                btnMonthUp.Size = New Size(17, 20)
+                btnMonthDown.Size = New Size(17, 20)
+
+                'ボタン位置
+                btnMonthUp.Location = New Point(78, 0)
+                btnMonthDown.Location = New Point(78, 19)
+
+                'ボタンフォント
+                btnMonthUp.Font = New Font("MS UI Gothic", 8)
+                btnMonthDown.Font = New Font("MS UI Gothic", 8)
+
+                '表示、非表示
+                eraBox.Visible = False
+                monthBox.Visible = False
+                dateBox.Visible = False
+                Label1.Visible = False
+                Label2.Visible = False
+                btnUp.Visible = False
+                btnDown.Visible = False
+                dayLabel.Visible = False
+                eraLabel.Visible = True
+                monthLabel.Visible = True
+                Label3.Visible = True
+                btnMonthUp.Visible = True
+                btnMonthDown.Visible = True
             Else
                 Return
             End If
@@ -322,7 +437,33 @@ Public Class ymdBox
         ADStr = ADStr & "/" & MonthText & "/" & DateText
 
         Return ADStr
+    End Function
 
+    Public Function getADStr4Ym() As String
+        Dim ADStr As String = ""
+
+        'yyyy/MMを返す
+
+        If EraLabelText = "" OrElse MonthLabelText = "" Then
+            Return ""
+        End If
+
+        '和暦の記号取得
+        Dim eraChar As String = EraLabelText.Substring(0, 1)
+
+        If eraChar = "T" Then
+            ADStr = (1911 + Integer.Parse(EraLabelText.Substring(1, 2))).ToString
+        ElseIf eraChar = "S" Then
+            ADStr = (1925 + Integer.Parse(EraLabelText.Substring(1, 2))).ToString
+        ElseIf eraChar = "H" Then
+            ADStr = (1988 + Integer.Parse(EraLabelText.Substring(1, 2))).ToString
+        ElseIf eraChar = ERA_X Then
+            ADStr = (2018 + Integer.Parse(EraLabelText.Substring(1, 2))).ToString
+        End If
+
+        ADStr = ADStr & "/" & MonthLabelText
+
+        Return ADStr
     End Function
 
     ''' <summary>
@@ -395,6 +536,43 @@ Public Class ymdBox
 
     End Sub
 
+    Public Sub setADStr4Ym(ymStr As String)
+        clearText()
+        Dim ymArray As String()
+        ymArray = Split(ymStr, "/")
+        Dim yearNum As Integer = Integer.Parse(ymArray(0))
+        Dim monthStr As String = ymArray(1)
+        Dim convertNum As Integer
+
+        MonthLabelText = monthStr
+
+        '西暦から和暦への変換処理
+        If yearNum >= 2118 Then
+            EraLabelText = "99"
+            MonthLabelText = "12"
+        ElseIf yearNum >= 2020 Then
+            'X２年～
+            convertNum = yearNum - 2018
+            EraLabelText = ERA_X & If(convertNum < 10, "0" & convertNum, "" & convertNum)
+        ElseIf yearNum = 2019 Then
+            '平成３１年orX1年
+            If Integer.Parse(monthStr) <= 4 Then
+                EraLabelText = "H31"
+            Else
+                EraLabelText = ERA_X & "01"
+            End If
+        ElseIf yearNum >= 1990 Then
+            '平成２年～
+            convertNum = yearNum - 1988
+            EraLabelText = "H" & If(convertNum < 10, "0" & convertNum, "" & convertNum)
+        ElseIf yearNum = 1989 Then
+            EraLabelText = "H01"
+        ElseIf yearNum <= 1988 Then
+            EraLabelText = "H01"
+            MonthLabelText = "01"
+        End If
+    End Sub
+
     ''' <summary>
     ''' 和暦表記(gyy/MM/dd)をテキストボックスへ設定する
     ''' </summary>
@@ -406,6 +584,13 @@ Public Class ymdBox
         EraText = warekiArray(0)
         MonthText = warekiArray(1)
         DateText = warekiArray(2)
+    End Sub
+
+    Public Sub setWarekiStr4Ym(warekiStr As String)
+        clearText()
+        Dim warekiArray As String() = Split(warekiStr, "/")
+        EraLabelText = warekiArray(0)
+        MonthLabelText = warekiArray(1)
     End Sub
 
     ''' <summary>
@@ -438,9 +623,15 @@ Public Class ymdBox
     ''' </summary>
     ''' <remarks></remarks>
     Public Sub clearText()
-        EraText = ""
-        MonthText = ""
-        DateText = ""
+        If boxType <> 5 Then
+            EraText = ""
+            MonthText = ""
+            DateText = ""
+        Else
+            EraLabelText = ""
+            MonthLabelText = ""
+        End If
+        
     End Sub
 
     ''' <summary>
@@ -1038,8 +1229,12 @@ Public Class ymdBox
         monthBox.ContextMenu = New ContextMenu()
         dateBox.ContextMenu = New ContextMenu()
 
+        setADStr4Ym(DateTime.Now.ToString("yyyy/MM"))
+
         Timer1.Interval = 500
         Timer2.Interval = 500
+        Timer3.Interval = 500
+        Timer4.Interval = 500
     End Sub
 
     Public Function getAge()
@@ -1198,6 +1393,20 @@ Public Class ymdBox
         End If
     End Sub
 
+    Private Sub monthLabelTextUpDown(upDown As Integer)
+        Dim currentInputDateTime As DateTime = getDateTimeObject(getADStr4Ym() & "/01")
+        If upDown = VALUE_UP Then
+            Dim plusOneMonthDateTime As DateTime = currentInputDateTime.AddMonths(1)
+            setADStr4Ym(plusOneMonthDateTime.ToString("yyyy/MM"))
+        ElseIf upDown = VALUE_DOWN Then
+            Dim minusOneMonthDateTime As DateTime = currentInputDateTime.AddMonths(-1)
+            setADStr4Ym(minusOneMonthDateTime.ToString("yyyy/MM"))
+        Else
+            Return
+        End If
+        RaiseEvent LabelTextChage(Me, New EventArgs)
+    End Sub
+
     Private Sub upText()
         If EraText = "" Then
             Return
@@ -1288,7 +1497,37 @@ Public Class ymdBox
         downText()
     End Sub
 
+    Private Sub Timer3_Tick(sender As Object, e As System.EventArgs) Handles Timer3.Tick
+        Timer3.Interval = 100
+        monthLabelTextUpDown(VALUE_UP)
+    End Sub
+
+    Private Sub Timer4_Tick(sender As Object, e As System.EventArgs) Handles Timer4.Tick
+        Timer4.Interval = 100
+        monthLabelTextUpDown(VALUE_DOWN)
+    End Sub
+
     Private Sub textBox_TextChanged(sender As Object, e As System.EventArgs) Handles eraBox.TextChanged, monthBox.TextChanged, dateBox.TextChanged
         dayLabel.Text = "(" & getDay() & ")"
+    End Sub
+
+    Private Sub btnMonthUp_MouseDown(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles btnMonthUp.MouseDown
+        monthLabelTextUpDown(VALUE_UP)
+        Timer3.Start()
+    End Sub
+
+    Private Sub btnMonthUp_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles btnMonthUp.MouseUp
+        Timer3.Stop()
+        Timer3.Interval = 500
+    End Sub
+
+    Private Sub btnMonthDown_MouseDown(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles btnMonthDown.MouseDown
+        monthLabelTextUpDown(VALUE_DOWN)
+        Timer4.Start()
+    End Sub
+
+    Private Sub btnMonthDown_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles btnMonthDown.MouseUp
+        Timer4.Stop()
+        Timer4.Interval = 500
     End Sub
 End Class

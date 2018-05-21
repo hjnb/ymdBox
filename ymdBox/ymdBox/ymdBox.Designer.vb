@@ -33,6 +33,13 @@ Partial Class ymdBox
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.Timer2 = New System.Windows.Forms.Timer(Me.components)
         Me.dayLabel = New System.Windows.Forms.Label()
+        Me.eraLabel = New System.Windows.Forms.Label()
+        Me.monthLabel = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.btnMonthUp = New System.Windows.Forms.Button()
+        Me.btnMonthDown = New System.Windows.Forms.Button()
+        Me.Timer3 = New System.Windows.Forms.Timer(Me.components)
+        Me.Timer4 = New System.Windows.Forms.Timer(Me.components)
         Me.SuspendLayout()
         '
         'eraBox
@@ -120,10 +127,62 @@ Partial Class ymdBox
         Me.dayLabel.Text = "(　)"
         Me.dayLabel.Visible = False
         '
+        'eraLabel
+        '
+        Me.eraLabel.AutoSize = True
+        Me.eraLabel.Font = New System.Drawing.Font("MS UI Gothic", 14.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.eraLabel.Location = New System.Drawing.Point(6, 52)
+        Me.eraLabel.Name = "eraLabel"
+        Me.eraLabel.Size = New System.Drawing.Size(0, 19)
+        Me.eraLabel.TabIndex = 9
+        '
+        'monthLabel
+        '
+        Me.monthLabel.AutoSize = True
+        Me.monthLabel.Font = New System.Drawing.Font("MS UI Gothic", 14.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.monthLabel.Location = New System.Drawing.Point(47, 52)
+        Me.monthLabel.Name = "monthLabel"
+        Me.monthLabel.Size = New System.Drawing.Size(0, 19)
+        Me.monthLabel.TabIndex = 10
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(43, 58)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(7, 12)
+        Me.Label3.TabIndex = 11
+        Me.Label3.Text = "."
+        '
+        'btnMonthUp
+        '
+        Me.btnMonthUp.Font = New System.Drawing.Font("MS UI Gothic", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.btnMonthUp.Location = New System.Drawing.Point(99, 45)
+        Me.btnMonthUp.Name = "btnMonthUp"
+        Me.btnMonthUp.Size = New System.Drawing.Size(15, 17)
+        Me.btnMonthUp.TabIndex = 12
+        Me.btnMonthUp.Text = "▲"
+        Me.btnMonthUp.UseVisualStyleBackColor = True
+        '
+        'btnMonthDown
+        '
+        Me.btnMonthDown.Font = New System.Drawing.Font("MS UI Gothic", 7.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+        Me.btnMonthDown.Location = New System.Drawing.Point(99, 61)
+        Me.btnMonthDown.Name = "btnMonthDown"
+        Me.btnMonthDown.Size = New System.Drawing.Size(15, 17)
+        Me.btnMonthDown.TabIndex = 13
+        Me.btnMonthDown.Text = "▼"
+        Me.btnMonthDown.UseVisualStyleBackColor = True
+        '
         'ymdBox
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.Controls.Add(Me.btnMonthDown)
+        Me.Controls.Add(Me.btnMonthUp)
+        Me.Controls.Add(Me.Label3)
+        Me.Controls.Add(Me.monthLabel)
+        Me.Controls.Add(Me.eraLabel)
         Me.Controls.Add(Me.dayLabel)
         Me.Controls.Add(Me.btnDown)
         Me.Controls.Add(Me.btnUp)
@@ -148,4 +207,11 @@ Partial Class ymdBox
     Friend WithEvents Timer1 As System.Windows.Forms.Timer
     Friend WithEvents Timer2 As System.Windows.Forms.Timer
     Friend WithEvents dayLabel As System.Windows.Forms.Label
+    Friend WithEvents eraLabel As System.Windows.Forms.Label
+    Friend WithEvents monthLabel As System.Windows.Forms.Label
+    Friend WithEvents Label3 As System.Windows.Forms.Label
+    Friend WithEvents btnMonthUp As System.Windows.Forms.Button
+    Friend WithEvents btnMonthDown As System.Windows.Forms.Button
+    Friend WithEvents Timer3 As System.Windows.Forms.Timer
+    Friend WithEvents Timer4 As System.Windows.Forms.Timer
 End Class
