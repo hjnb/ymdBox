@@ -33,7 +33,7 @@ Public Class ymdBox
 
     Private _boxType As Integer
 
-    Public Event LabelTextChage(ByVal sender As Object, ByVal e As EventArgs)
+    Public Event YmLabelTextChage(ByVal sender As Object, ByVal e As EventArgs)
 
     ''' <summary>
     ''' 和暦部分の文字列
@@ -631,7 +631,7 @@ Public Class ymdBox
             EraLabelText = ""
             MonthLabelText = ""
         End If
-        
+
     End Sub
 
     ''' <summary>
@@ -1406,6 +1406,32 @@ Public Class ymdBox
         End If
     End Sub
 
+    Public Function getPrevYmStr()
+        If boxType = 5 Then
+            Dim currentInputDateTime As DateTime = getDateTimeObject(getADStr4Ym() & "/01")
+            If currentInputDateTime.ToString("yyyy/MM") = "1989/01" Then
+                Return "1989/01"
+            End If
+            Dim minusOneMonthDateTime As DateTime = currentInputDateTime.AddMonths(-1)
+            Return minusOneMonthDateTime.ToString("yyyy/MM")
+        Else
+            Return ""
+        End If
+    End Function
+
+    Public Function getNextYmStr()
+        If boxType = 5 Then
+            Dim currentInputDateTime As DateTime = getDateTimeObject(getADStr4Ym() & "/01")
+            If currentInputDateTime.ToString("yyyy/MM") = "2117/12" Then
+                Return "2117/12"
+            End If
+            Dim plusOneMonthDateTime As DateTime = currentInputDateTime.AddMonths(1)
+            Return plusOneMonthDateTime.ToString("yyyy/MM")
+        Else
+            Return ""
+        End If
+    End Function
+
     Private Sub upText()
         If EraText = "" Then
             Return
@@ -1518,7 +1544,7 @@ Public Class ymdBox
     Private Sub btnMonthUp_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles btnMonthUp.MouseUp
         Timer3.Stop()
         Timer3.Interval = 500
-        RaiseEvent LabelTextChage(Me, New EventArgs)
+        RaiseEvent YmLabelTextChage(Me, New EventArgs)
     End Sub
 
     Private Sub btnMonthDown_MouseDown(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles btnMonthDown.MouseDown
@@ -1529,6 +1555,6 @@ Public Class ymdBox
     Private Sub btnMonthDown_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles btnMonthDown.MouseUp
         Timer4.Stop()
         Timer4.Interval = 500
-        RaiseEvent LabelTextChage(Me, New EventArgs)
+        RaiseEvent YmLabelTextChage(Me, New EventArgs)
     End Sub
 End Class
