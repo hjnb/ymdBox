@@ -1404,7 +1404,6 @@ Public Class ymdBox
         Else
             Return
         End If
-        RaiseEvent LabelTextChage(Me, New EventArgs)
     End Sub
 
     Private Sub upText()
@@ -1519,6 +1518,7 @@ Public Class ymdBox
     Private Sub btnMonthUp_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles btnMonthUp.MouseUp
         Timer3.Stop()
         Timer3.Interval = 500
+        RaiseEvent LabelTextChage(Me, New EventArgs)
     End Sub
 
     Private Sub btnMonthDown_MouseDown(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles btnMonthDown.MouseDown
@@ -1529,5 +1529,6 @@ Public Class ymdBox
     Private Sub btnMonthDown_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles btnMonthDown.MouseUp
         Timer4.Stop()
         Timer4.Interval = 500
+        RaiseEvent LabelTextChage(Me, New EventArgs)
     End Sub
 End Class
