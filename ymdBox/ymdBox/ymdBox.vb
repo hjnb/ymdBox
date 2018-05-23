@@ -16,12 +16,15 @@ Public Class ymdBox
     Private focusControlFlg As Boolean = False
 
     '和暦の記号
+    Private Const ERA_MEIJI As String = "M" '明治
     Private Const ERA_TAISYO As String = "T" '大正
     Private Const ERA_SYOWA As String = "S" '昭和
     Private Const ERA_HEISEI As String = "H" '平成
     Private Const ERA_X As String = "X" 'まだ未定
 
     '最小値、最大値
+    Private Const MEIJI_MIN As String = ERA_MEIJI & "33/01/01"
+    Private Const MEIJI_MAX As String = ERA_MEIJI & "45/07/29"
     Private Const TAISYO_MIN As String = ERA_TAISYO & "01/07/30"
     Private Const TAISYO_MAX As String = ERA_TAISYO & "15/12/24"
     Private Const SYOWA_MIN As String = ERA_SYOWA & "01/12/25"
@@ -424,7 +427,9 @@ Public Class ymdBox
         '和暦の記号取得
         Dim eraChar As String = EraText.Substring(0, 1)
 
-        If eraChar = "T" Then
+        If eraChar = "M" Then
+            '
+        ElseIf eraChar = "T" Then
             ADStr = (1911 + Integer.Parse(EraText.Substring(1, 2))).ToString
         ElseIf eraChar = "S" Then
             ADStr = (1925 + Integer.Parse(EraText.Substring(1, 2))).ToString
@@ -473,6 +478,9 @@ Public Class ymdBox
     ''' <remarks></remarks>
     Public Sub setADStr(ByVal ymdStr)
         clearText()
+        If ymdStr = "" Then
+            Return
+        End If
         Dim ymdArray As String()
         ymdArray = Split(ymdStr, "/")
         Dim yearNum As Integer = Integer.Parse(ymdArray(0))
