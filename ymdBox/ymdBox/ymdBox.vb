@@ -158,21 +158,21 @@ Public Class ymdBox
                 dateBox.Font = New Font("MS UI Gothic", 14)
 
                 '全体
-                Me.Size = New Size(110, 30)
+                Me.Size = New Size(112, 30)
 
                 'テキストボックスのサイズ
-                eraBox.Size = New Size(38, 30)
+                eraBox.Size = New Size(40, 30)
                 monthBox.Size = New Size(28, 30)
                 dateBox.Size = New Size(28, 30)
 
                 'テキストボックスの位置
                 eraBox.Location = New Point(1, 1)
-                monthBox.Location = New Point(47, 1)
-                dateBox.Location = New Point(82, 1)
+                monthBox.Location = New Point(48, 1)
+                dateBox.Location = New Point(83, 1)
 
                 'ラベルの位置
-                Label1.Location = New Point(40, 13)
-                Label2.Location = New Point(75, 13)
+                Label1.Location = New Point(41, 13)
+                Label2.Location = New Point(76, 13)
 
                 '表示、非表示
                 eraBox.Visible = True
@@ -249,18 +249,18 @@ Public Class ymdBox
                 Me.Size = New Size(145, 46)
 
                 'テキストボックスのサイズ
-                eraBox.Size = New Size(38, 30)
+                eraBox.Size = New Size(40, 30)
                 monthBox.Size = New Size(28, 30)
                 dateBox.Size = New Size(28, 30)
 
                 'テキストボックスの位置
                 eraBox.Location = New Point(1, 10)
-                monthBox.Location = New Point(47, 10)
-                dateBox.Location = New Point(82, 10)
+                monthBox.Location = New Point(48, 10)
+                dateBox.Location = New Point(83, 10)
 
                 'ラベルの位置
-                Label1.Location = New Point(40, 24)
-                Label2.Location = New Point(75, 24)
+                Label1.Location = New Point(41, 24)
+                Label2.Location = New Point(76, 24)
 
                 'ボタンサイズ
                 btnUp.Size = New Size(22, 23)
@@ -428,7 +428,7 @@ Public Class ymdBox
         Dim eraChar As String = EraText.Substring(0, 1)
 
         If eraChar = "M" Then
-            '
+            ADStr = (1867 + Integer.Parse(EraText.Substring(1, 2))).ToString
         ElseIf eraChar = "T" Then
             ADStr = (1911 + Integer.Parse(EraText.Substring(1, 2))).ToString
         ElseIf eraChar = "S" Then
@@ -456,7 +456,9 @@ Public Class ymdBox
         '和暦の記号取得
         Dim eraChar As String = EraLabelText.Substring(0, 1)
 
-        If eraChar = "T" Then
+        If eraChar = "M" Then
+            ADStr = (1867 + Integer.Parse(EraText.Substring(1, 2))).ToString
+        ElseIf eraChar = "T" Then
             ADStr = (1911 + Integer.Parse(EraLabelText.Substring(1, 2))).ToString
         ElseIf eraChar = "S" Then
             ADStr = (1925 + Integer.Parse(EraLabelText.Substring(1, 2))).ToString
@@ -506,7 +508,7 @@ Public Class ymdBox
                 EraText = ERA_X & "01"
             End If
         ElseIf yearNum >= 1990 Then
-            '平成２年～
+            '平成２年～３０年
             convertNum = yearNum - 1988
             EraText = "H" & If(convertNum < 10, "0" & convertNum, "" & convertNum)
         ElseIf yearNum = 1989 Then
@@ -517,7 +519,7 @@ Public Class ymdBox
                 EraText = "H01"
             End If
         ElseIf yearNum >= 1927 Then
-            '昭和２年～
+            '昭和２年～６３年
             convertNum = yearNum - 1925
             EraText = "S" & If(convertNum < 10, "0" & convertNum, "" & convertNum)
         ElseIf yearNum = 1926 Then
@@ -528,18 +530,23 @@ Public Class ymdBox
                 EraText = "T15"
             End If
         ElseIf yearNum >= 1913 Then
-            '大正２年～
+            '大正２年～１４年
             convertNum = yearNum - 1911
             EraText = "T" & If(convertNum < 10, "0" & convertNum, "" & convertNum)
-        ElseIf yearNum <= 1912 Then
-            If (yearNum = 1912 AndAlso Integer.Parse(monthStr) >= 8) OrElse (yearNum = 1912 AndAlso Integer.Parse(monthStr) = 7 AndAlso Integer.Parse(dateStr) >= 30) Then
+        ElseIf yearNum = 1912 Then
+            '大正１年 or 明治４５年
+            If Integer.Parse(monthStr) >= 8 OrElse (Integer.Parse(monthStr) = 7 AndAlso Integer.Parse(dateStr) >= 30) Then
                 EraText = "T01"
             Else
-                '大正の初期値(T01.07.30)より以前の場合は全て初期値に設定
-                EraText = "T01"
-                MonthText = "07"
-                DateText = "30"
+                EraText = "M45"
             End If
+        ElseIf yearNum >= 1900 Then
+            '明治３３年～４４年
+            convertNum = yearNum - 1867
+            EraText = "M" & If(convertNum < 10, "0" & convertNum, "" & convertNum)
+        ElseIf yearNum < 1900 Then
+            '1899年以前は最小値をセット
+            setWarekiStr(MEIJI_MIN)
         End If
 
     End Sub
@@ -657,8 +664,11 @@ Public Class ymdBox
             If e.KeyCode = Keys.Right Then
                 eraBox.Select(1, 1)
                 e.SuppressKeyPress = True
-            ElseIf e.KeyCode = Keys.T OrElse e.KeyCode = Keys.S OrElse e.KeyCode = Keys.H OrElse e.KeyCode = Asc(ERA_X) Then
-                If e.KeyCode = Keys.T Then
+            ElseIf e.KeyCode = Keys.M OrElse e.KeyCode = Keys.T OrElse e.KeyCode = Keys.S OrElse e.KeyCode = Keys.H OrElse e.KeyCode = Asc(ERA_X) Then
+                If e.KeyCode = Keys.M Then
+                    '明治の初期値を設定
+                    setWarekiStr(MEIJI_MIN)
+                ElseIf e.KeyCode = Keys.T Then
                     '大正の初期値を設定
                     setWarekiStr(TAISYO_MIN)
                 ElseIf e.KeyCode = Keys.S Then
@@ -909,7 +919,26 @@ Public Class ymdBox
         Dim monthNum As String = Integer.Parse(monthStr)
         Dim dateNum As String = Integer.Parse(dateStr)
 
-        If eraChar = "T" Then
+        If eraChar = "M" Then
+            '明治の判定(明治３３年１月１日～明治４５年７月２９日)
+            If eraNum < 33 Then
+                Return False
+            ElseIf 33 <= eraNum AndAlso eraNum <= 44 Then
+                Return True
+            ElseIf eraNum = 45 Then
+                If monthNum >= 8 Then
+                    Return False
+                Else
+                    If dateNum < 30 Then
+                        Return True
+                    Else
+                        Return False
+                    End If
+                End If
+            Else
+                Return False
+            End If
+        ElseIf eraChar = "T" Then
             '大正の判定(大正１年７月３０日～大正１５年１２月２４日)
             If eraNum = 1 Then
                 If monthNum < 7 Then
@@ -1055,8 +1084,7 @@ Public Class ymdBox
             End If
         ElseIf eraChar = "T" Then
             If eraNum = 1 Then
-                MonthText = "07"
-                DateText = "30"
+                EraText = "M45"
             ElseIf eraNum = 15 Then
                 EraText = "S01"
                 DateText = dateStr
@@ -1079,6 +1107,30 @@ Public Class ymdBox
                     EraText = "H" & If(nextNextEraNum >= 10, "" & nextNextEraNum, "0" & nextNextEraNum)
                 End If
             End If
+        ElseIf eraChar = "M" Then
+            If eraNum < 33 Then
+                setWarekiStr(MEIJI_MIN)
+            ElseIf eraNum = 45 Then
+                EraText = "T01"
+            ElseIf 46 <= eraNum Then
+                Dim nextEraNum As Integer = eraNum - 45 + 1
+                If nextEraNum <= 14 Then
+                    EraText = "T" & If(nextEraNum >= 10, "" & nextEraNum, "0" & nextEraNum)
+                ElseIf nextEraNum = 15 Then
+                    If monthNum = 12 Then
+                        If dateNum > 24 Then
+                            EraText = "S01"
+                        Else
+                            EraText = "T15"
+                        End If
+                    Else
+                        EraText = "T15"
+                    End If
+                ElseIf 16 <= nextEraNum Then
+                    Dim nextNextEraNum As Integer = nextEraNum - 15 + 1
+                    EraText = "S" & If(nextNextEraNum >= 10, "" & nextNextEraNum, "0" & nextNextEraNum)
+                End If
+            End If
         End If
     End Sub
 
@@ -1095,7 +1147,9 @@ Public Class ymdBox
         Dim eraStrNum As Integer = Integer.Parse(eraStr.Substring(1, 2))
         Dim monthStrNum As Integer = Integer.Parse(monthStr)
 
-        If eraChar = "T" Then
+        If eraChar = "M" Then
+            AD = 1867 + eraStrNum
+        ElseIf eraChar = "T" Then
             AD = 1911 + eraStrNum
         ElseIf eraChar = "S" Then
             AD = 1925 + eraStrNum
@@ -1271,7 +1325,9 @@ Public Class ymdBox
             '年の増加処理
             If selectionStart = 0 Then
                 '記号が選択されている場合
-                If getEraChar() = "T" Then
+                If getEraChar() = "M" Then
+                    setWarekiStr(TAISYO_MIN)
+                ElseIf getEraChar() = "T" Then
                     setWarekiStr(SYOWA_MIN)
                 ElseIf getEraChar() = "S" Then
                     setWarekiStr(HEISEI_MIN)
@@ -1287,11 +1343,13 @@ Public Class ymdBox
                 Dim plusOneYearDateTime As DateTime = currentInputDateTime.AddYears(1)
                 setADStr(plusOneYearDateTime.ToString("yyyy/MM/dd"))
             End If
-        ElseIf upDown = VALUE_DOWN Then
-            '年の減少処理
-            If selectionStart = 0 Then
+            ElseIf upDown = VALUE_DOWN Then
+                '年の減少処理
+                If selectionStart = 0 Then
                 '記号が選択されている場合
-                If getEraChar() = "S" Then
+                If getEraChar() = "T" Then
+                    setWarekiStr(MEIJI_MIN)
+                ElseIf getEraChar() = "S" Then
                     setWarekiStr(TAISYO_MIN)
                 ElseIf getEraChar() = "H" Then
                     setWarekiStr(SYOWA_MIN)
@@ -1307,7 +1365,7 @@ Public Class ymdBox
                 Dim minusOneYearDateTime As DateTime = currentInputDateTime.AddYears(-1)
                 setADStr(minusOneYearDateTime.ToString("yyyy/MM/dd"))
             End If
-        End If
+            End If
     End Sub
 
     Private Sub monthTextUpDown(upDown As Integer, selectionStart As Integer)
