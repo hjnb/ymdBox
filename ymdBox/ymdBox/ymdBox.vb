@@ -1449,6 +1449,7 @@ Public Class ymdBox
                 ElseIf getEraChar() = "H" Then
                     setWarekiStr(X_MIN)
                 End If
+                RaiseEvent YmdTextChange(Me, New EventArgs)
             ElseIf selectionStart = 1 Then
                 '10の位が選択されている場合、10年増加
                 Dim plusTenYearDateTime As DateTime = currentInputDateTime.AddYears(10)
