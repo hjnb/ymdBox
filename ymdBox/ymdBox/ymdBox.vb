@@ -1472,6 +1472,7 @@ Public Class ymdBox
                 ElseIf getEraChar() = ERA_X Then
                     setWarekiStr(HEISEI_MIN)
                 End If
+                RaiseEvent YmdTextChange(Me, New EventArgs)
             ElseIf selectionStart = 1 Then
                 '10の位が選択されている場合、10年減少
                 Dim minusTenYearDateTime As DateTime = currentInputDateTime.AddYears(-10)
