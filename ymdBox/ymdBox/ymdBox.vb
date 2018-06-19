@@ -505,6 +505,15 @@ Public Class ymdBox
         Return eraBox.Text.Substring(1, 2)
     End Function
 
+    Public Function getWarekiStr() As String
+        If EraText = "" OrElse MonthText = "" OrElse DateText = "" Then
+            Return ""
+        Else
+            Return EraText & "/" & MonthText & "/" & DateText
+        End If
+    End Function
+
+
     ''' <summary>
     ''' 入力されている和暦日付を西暦(yyyy/MM/dd)に変換して返す
     ''' </summary>
