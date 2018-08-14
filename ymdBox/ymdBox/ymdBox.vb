@@ -21,6 +21,7 @@ Public Class ymdBox
     Private Const ERA_SYOWA As String = "S" '昭和
     Private Const ERA_HEISEI As String = "H" '平成
     Private Const ERA_X As String = "X" 'まだ未定
+    Private Const ERA_X_KANJI As String = "仮仮"
 
     '最小値、最大値
     Private Const MEIJI_MIN As String = ERA_MEIJI & "33/01/01"
@@ -546,7 +547,7 @@ Public Class ymdBox
         Return ADStr
     End Function
 
-    Public Function getADYmStr()
+    Public Function getADYmStr() As String
         Return getADStr().Substring(0, 7)
     End Function
 
@@ -577,6 +578,22 @@ Public Class ymdBox
         ADStr = ADStr & "/" & MonthLabelText
 
         Return ADStr
+    End Function
+
+    Public Function getWarekiKanji() As String
+        If getEraChar() = "M" Then
+            Return "明治"
+        ElseIf getEraChar() = "T" Then
+            Return "大正"
+        ElseIf getEraChar() = "S" Then
+            Return "昭和"
+        ElseIf getEraChar() = "H" Then
+            Return "平成"
+        ElseIf getEraChar() = ERA_X Then
+            Return ERA_X_KANJI
+        Else
+            Return ""
+        End If
     End Function
 
     ''' <summary>
@@ -839,7 +856,7 @@ Public Class ymdBox
                 monthBox.Focus()
                 monthBox.Select(0, 1)
                 e.SuppressKeyPress = True
-            ElseIf (secondEraChar = "0" AndAlso Keys.D1 <= e.KeyCode AndAlso e.KeyCode <= Keys.D9) OrElse (secondEraChar = "0" AndAlso Keys.NumPad0 <= e.KeyCode AndAlso e.KeyCode <= Keys.NumPad9) OrElse (secondEraChar <> "0" AndAlso Keys.D0 <= e.KeyCode AndAlso e.KeyCode <= Keys.D9) OrElse (secondEraChar <> "0" AndAlso Keys.NumPad0 <= e.KeyCode AndAlso e.KeyCode <= Keys.NumPad9) Then
+            ElseIf (secondEraChar = "0" AndAlso Keys.D1 <= e.KeyCode AndAlso e.KeyCode <= Keys.D9) OrElse (secondEraChar = "0" AndAlso Keys.NumPad1 <= e.KeyCode AndAlso e.KeyCode <= Keys.NumPad9) OrElse (secondEraChar <> "0" AndAlso Keys.D0 <= e.KeyCode AndAlso e.KeyCode <= Keys.D9) OrElse (secondEraChar <> "0" AndAlso Keys.NumPad0 <= e.KeyCode AndAlso e.KeyCode <= Keys.NumPad9) Then
                 Dim daysNum As Integer = getMonthDaysNum(getEraChar() & getEraNumStr().Substring(0, 1) & If(e.KeyCode >= Keys.NumPad0, Chr(e.KeyCode - 48), Chr(e.KeyCode)), MonthText)
                 If Integer.Parse(DateText) > daysNum Then
                     DateText = "" & daysNum
@@ -1143,7 +1160,9 @@ Public Class ymdBox
             End If
         ElseIf eraChar = ERA_X Then
             'Xの判定（X１年５月１日～X９９年１２月３１日）
-            If eraNum = 1 Then
+            If eraNum = 0 Then
+                Return False
+            ElseIf eraNum = 1 Then
                 If monthNum < 5 Then
                     Return False
                 Else
