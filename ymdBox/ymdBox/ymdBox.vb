@@ -514,6 +514,92 @@ Public Class ymdBox
         End If
     End Function
 
+    Public Shared Function convADStrToWarekiStr(adStr As String) As String
+        If System.Text.RegularExpressions.Regex.IsMatch(adStr, "[12]\d\d\d/\d\d/\d\d") Then
+            Dim yearStr As String = adStr.Substring(0, 4)
+            Dim monthStr As String = adStr.Substring(5, 2)
+            Dim dateStr As String = adStr.Substring(8, 2)
+
+            Dim yearNum As Integer = CInt(yearStr)
+            Dim monthNum As Integer = CInt(monthStr)
+            Dim dateNum As Integer = CInt(dateStr)
+
+            Dim convEraStr As String = ""
+            Dim convYearNum As Integer
+            Dim convYearStr As String = ""
+
+            '西暦から和暦への変換処理
+            If yearNum >= 2118 Then
+                convEraStr = ERA_X
+                convYearNum = 99
+            ElseIf yearNum >= 2020 Then
+                'X２年～
+                convEraStr = ERA_X
+                convYearNum = yearNum - 2018
+            ElseIf yearNum = 2019 Then
+                '平成３１年orX1年
+                If monthNum <= 4 Then
+                    convEraStr = ERA_HEISEI
+                    convYearNum = 31
+                Else
+                    convEraStr = ERA_X
+                    convYearNum = 1
+                End If
+            ElseIf yearNum >= 1990 Then
+                '平成２年～３０年
+                convEraStr = ERA_HEISEI
+                convYearNum = yearNum - 1988
+            ElseIf yearNum = 1989 Then
+                '平成１年or昭和64年
+                If monthNum = 1 AndAlso dateNum <= 7 Then
+                    convEraStr = ERA_SYOWA
+                    convYearNum = 64
+                Else
+                    convEraStr = ERA_HEISEI
+                    convYearNum = 1
+                End If
+            ElseIf yearNum >= 1927 Then
+                '昭和２年～６３年
+                convEraStr = ERA_SYOWA
+                convYearNum = yearNum - 1925
+            ElseIf yearNum = 1926 Then
+                '昭和１年or大正１５年
+                If monthNum = 12 AndAlso dateNum >= 25 Then
+                    convEraStr = ERA_SYOWA
+                    convYearNum = 1
+                Else
+                    convEraStr = ERA_TAISYO
+                    convYearNum = 15
+                End If
+            ElseIf yearNum >= 1913 Then
+                '大正２年～１４年
+                convEraStr = ERA_TAISYO
+                convYearNum = yearNum - 1911
+            ElseIf yearNum = 1912 Then
+                '大正１年 or 明治４５年
+                If monthNum >= 8 OrElse (monthNum = 7 AndAlso dateNum >= 30) Then
+                    convEraStr = ERA_TAISYO
+                    convYearNum = 1
+                Else
+                    convEraStr = ERA_MEIJI
+                    convYearNum = 45
+                End If
+            ElseIf yearNum >= 1900 Then
+                '明治３３年～４４年
+                convEraStr = ERA_MEIJI
+                convYearNum = yearNum - 1867
+            ElseIf yearNum < 1900 Then
+                '1899年以前は空を返す
+                Return ""
+            End If
+
+            convYearStr = If(convYearNum < 10, "0" & convYearNum, "" & convYearNum)
+
+            Return convEraStr & convYearStr & "/" & monthStr & "/" & dateStr
+        Else
+            Return ""
+        End If
+    End Function
 
     ''' <summary>
     ''' 入力されている和暦日付を西暦(yyyy/MM/dd)に変換して返す
@@ -1442,7 +1528,7 @@ Public Class ymdBox
         Timer4.Interval = 500
     End Sub
 
-    Public Function getAge()
+    Public Function getAge() As Integer
         Dim today As DateTime = DateTime.Today
         Dim inputDate As String = getADStr()
         Dim yyyy As Integer = inputDate.Substring(0, 4)
