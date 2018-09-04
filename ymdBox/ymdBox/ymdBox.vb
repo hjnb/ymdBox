@@ -514,6 +514,12 @@ Public Class ymdBox
         End If
     End Function
 
+    ''' <summary>
+    ''' 西暦(yyyy/MM/dd)を和暦に変換
+    ''' </summary>
+    ''' <param name="adStr"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
     Public Shared Function convADStrToWarekiStr(adStr As String) As String
         If System.Text.RegularExpressions.Regex.IsMatch(adStr, "[12]\d\d\d/\d\d/\d\d") Then
             Dim yearStr As String = adStr.Substring(0, 4)
@@ -596,6 +602,36 @@ Public Class ymdBox
             convYearStr = If(convYearNum < 10, "0" & convYearNum, "" & convYearNum)
 
             Return convEraStr & convYearStr & "/" & monthStr & "/" & dateStr
+        Else
+            Return ""
+        End If
+    End Function
+
+    ''' <summary>
+    ''' 和暦を西暦に変換
+    ''' </summary>
+    ''' <param name="warekiStr"></param>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Shared Function convWarekiStrToADStr(warekiStr As String) As String
+        Dim warekiPattenStr As String = ERA_X & ERA_HEISEI & ERA_SYOWA & ERA_TAISYO & ERA_MEIJI
+        If System.Text.RegularExpressions.Regex.IsMatch(warekiStr, "[" & warekiPattenStr & "]\d\d/\d\d/\d\d") Then
+            Dim eraStr As String = warekiStr.Substring(0, 1)
+            Dim yearNum As Integer = CInt(warekiStr.Substring(1, 2))
+            Dim adYear As Integer
+            If eraStr = ERA_X Then
+                adYear = 2018 + yearNum
+            ElseIf eraStr = ERA_HEISEI Then
+                adYear = 1988 + yearNum
+            ElseIf eraStr = ERA_SYOWA Then
+                adYear = 1925 + yearNum
+            ElseIf eraStr = ERA_TAISYO Then
+                adYear = 1911 + yearNum
+            ElseIf eraStr = ERA_MEIJI Then
+                adYear = 1867 + yearNum
+            End If
+
+            Return adYear & warekiStr.Substring(3, 6)
         Else
             Return ""
         End If
