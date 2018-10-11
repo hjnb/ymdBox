@@ -1145,12 +1145,12 @@ Public Class ymdBox
             ElseIf e.KeyCode = Keys.Right Then
                 dateBox.Select(1, 1)
                 e.SuppressKeyPress = True
-            ElseIf (firstDateChar = "0" AndAlso (Keys.D1 <= e.KeyCode AndAlso e.KeyCode <= Keys.D9) OrElse (Keys.NumPad1 <= e.KeyCode AndAlso e.KeyCode <= Keys.NumPad9)) OrElse
-                   (firstDateChar = "1" AndAlso (Keys.D0 <= e.KeyCode AndAlso e.KeyCode <= Keys.D9) OrElse (Keys.NumPad0 <= e.KeyCode AndAlso e.KeyCode <= Keys.NumPad9)) OrElse
-                   (firstDateChar = "2" AndAlso daysNum = 28 AndAlso (Keys.D0 <= e.KeyCode AndAlso e.KeyCode <= Keys.D8) OrElse (Keys.NumPad0 <= e.KeyCode AndAlso e.KeyCode <= Keys.NumPad8)) OrElse
-                   (firstDateChar = "2" AndAlso daysNum >= 29 AndAlso (Keys.D0 <= e.KeyCode AndAlso e.KeyCode <= Keys.D9) OrElse (Keys.NumPad0 <= e.KeyCode AndAlso e.KeyCode <= Keys.NumPad9)) OrElse
-                   (firstDateChar = "3" AndAlso daysNum = 30 AndAlso (Keys.D0 = e.KeyCode) OrElse (Keys.NumPad0 = e.KeyCode)) OrElse
-                   (firstDateChar = "3" AndAlso daysNum = 31 AndAlso (Keys.D0 <= e.KeyCode AndAlso e.KeyCode <= Keys.D1) OrElse (Keys.NumPad0 <= e.KeyCode AndAlso e.KeyCode <= Keys.NumPad1)) Then
+            ElseIf (firstDateChar = "0" AndAlso ((Keys.D1 <= e.KeyCode AndAlso e.KeyCode <= Keys.D9) OrElse (Keys.NumPad1 <= e.KeyCode AndAlso e.KeyCode <= Keys.NumPad9))) OrElse
+                   (firstDateChar = "1" AndAlso ((Keys.D0 <= e.KeyCode AndAlso e.KeyCode <= Keys.D9) OrElse (Keys.NumPad0 <= e.KeyCode AndAlso e.KeyCode <= Keys.NumPad9))) OrElse
+                   (firstDateChar = "2" AndAlso daysNum = 28 AndAlso ((Keys.D0 <= e.KeyCode AndAlso e.KeyCode <= Keys.D8) OrElse (Keys.NumPad0 <= e.KeyCode AndAlso e.KeyCode <= Keys.NumPad8))) OrElse
+                   (firstDateChar = "2" AndAlso daysNum >= 29 AndAlso ((Keys.D0 <= e.KeyCode AndAlso e.KeyCode <= Keys.D9) OrElse (Keys.NumPad0 <= e.KeyCode AndAlso e.KeyCode <= Keys.NumPad9))) OrElse
+                   (firstDateChar = "3" AndAlso daysNum = 30 AndAlso ((Keys.D0 = e.KeyCode) OrElse (Keys.NumPad0 = e.KeyCode))) OrElse
+                   (firstDateChar = "3" AndAlso daysNum = 31 AndAlso ((Keys.D0 <= e.KeyCode AndAlso e.KeyCode <= Keys.D1) OrElse (Keys.NumPad0 <= e.KeyCode AndAlso e.KeyCode <= Keys.NumPad1))) Then
                 '入力された年月日が存在するかチェック
                 If checkDate(EraText, MonthText, DateText.Substring(0, 1) & If(e.KeyCode >= Keys.NumPad0, Chr(e.KeyCode - 48), Chr(e.KeyCode))) = True Then
                     DateText = DateText.Substring(0, 1) & If(e.KeyCode >= Keys.NumPad0, Chr(e.KeyCode - 48), Chr(e.KeyCode))
