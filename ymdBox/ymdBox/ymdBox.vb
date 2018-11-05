@@ -514,6 +514,28 @@ Public Class ymdBox
         End If
     End Function
 
+    Public Shared Function getKanji(warekiStr As String) As String
+        Dim warekiPattenStr As String = ERA_X & ERA_HEISEI & ERA_SYOWA & ERA_TAISYO & ERA_MEIJI
+        If System.Text.RegularExpressions.Regex.IsMatch(warekiStr, "[" & warekiPattenStr & "]\d\d/\d\d/\d\d") Then
+            Dim eraStr As String = warekiStr.Substring(0, 1)
+            If eraStr = ERA_X Then
+                Return ERA_X_KANJI
+            ElseIf eraStr = "H" Then
+                Return "平成"
+            ElseIf eraStr = "S" Then
+                Return "昭和"
+            ElseIf eraStr = "T" Then
+                Return "大正"
+            ElseIf eraStr = "M" Then
+                Return "明治"
+            Else
+                Return ""
+            End If
+        Else
+            Return ""
+        End If
+    End Function
+
     ''' <summary>
     ''' 西暦(yyyy/MM/dd)を和暦に変換
     ''' </summary>
