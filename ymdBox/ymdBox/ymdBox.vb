@@ -1565,11 +1565,21 @@ Public Class ymdBox
     End Sub
 
     Private Sub monthBox_GotFocus(sender As Object, e As System.EventArgs) Handles monthBox.GotFocus
-        focusedTextBoxNum = 2
+        If EraText = "" AndAlso MonthText = "" AndAlso DateText = "" Then
+            focusedTextBoxNum = 1
+            eraBox.Focus()
+        Else
+            focusedTextBoxNum = 2
+        End If
     End Sub
 
     Private Sub dateBox_GotFocus(sender As Object, e As System.EventArgs) Handles dateBox.GotFocus
-        focusedTextBoxNum = 3
+        If EraText = "" AndAlso MonthText = "" AndAlso DateText = "" Then
+            focusedTextBoxNum = 1
+            eraBox.Focus()
+        Else
+            focusedTextBoxNum = 3
+        End If
     End Sub
 
     Private Sub ymdBox_Load(sender As Object, e As System.EventArgs) Handles Me.Load
