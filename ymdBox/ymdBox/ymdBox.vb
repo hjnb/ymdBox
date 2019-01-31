@@ -482,6 +482,60 @@ Public Class ymdBox
                 Label3.Visible = False
                 btnMonthUp.Visible = False
                 btnMonthDown.Visible = False
+            ElseIf value = 8 Then
+                '文字サイズ変更
+                eraBox.Font = New Font("MS UI Gothic", 14)
+                monthBox.Font = New Font("MS UI Gothic", 14)
+                dateBox.Font = New Font("MS UI Gothic", 14)
+                dayLabel.Font = New Font("MS UI Gothic", 14)
+
+                '全体
+                Me.Size = New Size(174, 46)
+
+                'テキストボックスのサイズ
+                eraBox.Size = New Size(40, 30)
+                monthBox.Size = New Size(28, 30)
+                dateBox.Size = New Size(28, 30)
+
+                'テキストボックスの位置
+                eraBox.Location = New Point(1, 10)
+                monthBox.Location = New Point(48, 10)
+                dateBox.Location = New Point(83, 10)
+
+                'ラベルの位置
+                Label1.Location = New Point(41, 24)
+                Label2.Location = New Point(76, 24)
+
+                '曜日ラベルサイズ、位置
+                dayLabel.Size = New Size(32, 16)
+                dayLabel.Location = New Point(116, 13)
+
+                'ボタンサイズ
+                btnUp.Size = New Size(19, 22)
+                btnDown.Size = New Size(19, 22)
+
+                'ボタン位置
+                btnUp.Location = New Point(155, 1)
+                btnDown.Location = New Point(155, 22)
+
+                'ボタンフォント
+                btnUp.Font = New Font("MS UI Gothic", 10)
+                btnDown.Font = New Font("MS UI Gothic", 10)
+
+                '表示、非表示
+                eraBox.Visible = True
+                monthBox.Visible = True
+                dateBox.Visible = True
+                Label1.Visible = True
+                Label2.Visible = True
+                btnUp.Visible = True
+                btnDown.Visible = True
+                dayLabel.Visible = True
+                eraLabel.Visible = False
+                monthLabel.Visible = False
+                Label3.Visible = False
+                btnMonthUp.Visible = False
+                btnMonthDown.Visible = False
             Else
                 Return
             End If
