@@ -536,6 +536,45 @@ Public Class ymdBox
                 Label3.Visible = False
                 btnMonthUp.Visible = False
                 btnMonthDown.Visible = False
+            ElseIf value = 9 Then
+                '文字サイズ変更
+                eraBox.Font = New Font("MS UI Gothic", 9)
+                monthBox.Font = New Font("MS UI Gothic", 9)
+                dateBox.Font = New Font("MS UI Gothic", 9)
+                Label1.Font = New Font("MS UI Gothic", 9)
+                Label2.Font = New Font("MS UI Gothic", 9)
+
+                '全体
+                Me.Size = New Size(86, 20)
+
+                'テキストボックスのサイズ
+                eraBox.Size = New Size(27, 19)
+                monthBox.Size = New Size(21, 19)
+                dateBox.Size = New Size(21, 19)
+
+                'テキストボックスの位置
+                eraBox.Location = New Point(1, 1)
+                monthBox.Location = New Point(37, 1)
+                dateBox.Location = New Point(65, 1)
+
+                'ラベルの位置
+                Label1.Location = New Point(29, 8)
+                Label2.Location = New Point(58, 8)
+
+                '表示、非表示
+                eraBox.Visible = True
+                monthBox.Visible = True
+                dateBox.Visible = True
+                Label1.Visible = True
+                Label2.Visible = True
+                btnUp.Visible = False
+                btnDown.Visible = False
+                dayLabel.Visible = False
+                eraLabel.Visible = False
+                monthLabel.Visible = False
+                Label3.Visible = False
+                btnMonthUp.Visible = False
+                btnMonthDown.Visible = False
             Else
                 Return
             End If
@@ -982,6 +1021,22 @@ Public Class ymdBox
 
         Dim selectedIndex As Integer = eraBox.SelectionStart
 
+        'boxType=9の場合のみ
+        If boxType = 9 AndAlso selectedIndex = 0 AndAlso EraText = "" Then
+            '現在日付をセット
+            setADStr(Today.ToString("yyyy/MM/dd"))
+            eraBox.Select(1, 1)
+            e.SuppressKeyPress = True
+            Return
+        End If
+
+        'boxType=9の場合のみ
+        If boxType = 9 AndAlso EraText <> "" And e.KeyCode = Keys.Delete Then
+            clearText()
+            e.SuppressKeyPress = True
+            Return
+        End If
+
         If selectedIndex = 0 Then
             '1文字目（和暦の記号）
             If e.KeyCode = Keys.Right Then
@@ -1088,6 +1143,14 @@ Public Class ymdBox
 
         Dim selectedIndex As Integer = monthBox.SelectionStart
 
+        'boxType=9の場合のみ
+        If boxType = 9 AndAlso EraText <> "" And e.KeyCode = Keys.Delete Then
+            clearText()
+            eraBox.Focus()
+            e.SuppressKeyPress = True
+            Return
+        End If
+
         If selectedIndex = 0 Then
             '1文字目(月の10の位)
             If e.KeyCode = Keys.Left Then
@@ -1181,6 +1244,14 @@ Public Class ymdBox
         Dim selectedIndex As Integer = dateBox.SelectionStart
         '入力されている月の日数を取得
         Dim daysNum As Integer = getMonthDaysNum(EraText, MonthText)
+
+        'boxType=9の場合のみ
+        If boxType = 9 AndAlso EraText <> "" And e.KeyCode = Keys.Delete Then
+            clearText()
+            eraBox.Focus()
+            e.SuppressKeyPress = True
+            Return
+        End If
 
         If selectedIndex = 0 Then
             '1文字目(日の10の位)
