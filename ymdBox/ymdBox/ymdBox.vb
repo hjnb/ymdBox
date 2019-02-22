@@ -1022,7 +1022,7 @@ Public Class ymdBox
         Dim selectedIndex As Integer = eraBox.SelectionStart
 
         'boxType=9の場合のみ
-        If boxType = 9 AndAlso selectedIndex = 0 AndAlso EraText = "" Then
+        If boxType = 9 AndAlso selectedIndex = 0 AndAlso EraText = "" AndAlso e.KeyCode <> Keys.Enter Then
             '現在日付をセット
             setADStr(Today.ToString("yyyy/MM/dd"))
             eraBox.Select(1, 1)
@@ -1031,7 +1031,7 @@ Public Class ymdBox
         End If
 
         'boxType=9の場合のみ
-        If boxType = 9 AndAlso EraText <> "" And e.KeyCode = Keys.Delete Then
+        If boxType = 9 AndAlso EraText <> "" AndAlso e.KeyCode = Keys.Delete Then
             clearText()
             e.SuppressKeyPress = True
             Return
@@ -1144,7 +1144,7 @@ Public Class ymdBox
         Dim selectedIndex As Integer = monthBox.SelectionStart
 
         'boxType=9の場合のみ
-        If boxType = 9 AndAlso EraText <> "" And e.KeyCode = Keys.Delete Then
+        If boxType = 9 AndAlso EraText <> "" AndAlso e.KeyCode = Keys.Delete Then
             clearText()
             eraBox.Focus()
             e.SuppressKeyPress = True
@@ -1246,7 +1246,7 @@ Public Class ymdBox
         Dim daysNum As Integer = getMonthDaysNum(EraText, MonthText)
 
         'boxType=9の場合のみ
-        If boxType = 9 AndAlso EraText <> "" And e.KeyCode = Keys.Delete Then
+        If boxType = 9 AndAlso EraText <> "" AndAlso e.KeyCode = Keys.Delete Then
             clearText()
             eraBox.Focus()
             e.SuppressKeyPress = True
