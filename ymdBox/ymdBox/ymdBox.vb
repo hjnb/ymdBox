@@ -41,6 +41,8 @@ Public Class ymdBox
 
     Public Event YmdTextChange(ByVal sender As Object, ByVal e As EventArgs)
 
+    Public Event keyDownEnterOrDown(ByVal sender As Object, ByVal e As EventArgs)
+
     ''' <summary>
     ''' 和暦部分の文字列
     ''' </summary>
@@ -1037,6 +1039,12 @@ Public Class ymdBox
             Return
         End If
 
+        'boxtype=9の場合のみ
+        If boxType = 9 AndAlso (e.KeyCode = Keys.Enter OrElse e.KeyCode = Keys.Down) Then
+            e.SuppressKeyPress = True
+            RaiseEvent keyDownEnterOrDown(Me, New EventArgs)
+        End If
+
         If selectedIndex = 0 Then
             '1文字目（和暦の記号）
             If e.KeyCode = Keys.Right Then
@@ -1151,6 +1159,12 @@ Public Class ymdBox
             Return
         End If
 
+        'boxtype=9の場合のみ
+        If boxType = 9 AndAlso (e.KeyCode = Keys.Enter OrElse e.KeyCode = Keys.Down) Then
+            e.SuppressKeyPress = True
+            RaiseEvent keyDownEnterOrDown(Me, New EventArgs)
+        End If
+
         If selectedIndex = 0 Then
             '1文字目(月の10の位)
             If e.KeyCode = Keys.Left Then
@@ -1251,6 +1265,12 @@ Public Class ymdBox
             eraBox.Focus()
             e.SuppressKeyPress = True
             Return
+        End If
+
+        'boxtype=9の場合のみ
+        If boxType = 9 AndAlso (e.KeyCode = Keys.Enter OrElse e.KeyCode = Keys.Down) Then
+            e.SuppressKeyPress = True
+            RaiseEvent keyDownEnterOrDown(Me, New EventArgs)
         End If
 
         If selectedIndex = 0 Then
