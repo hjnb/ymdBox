@@ -1023,6 +1023,13 @@ Public Class ymdBox
 
         Dim selectedIndex As Integer = eraBox.SelectionStart
 
+        'boxtype=9の場合のみ
+        If boxType = 9 AndAlso (e.KeyCode = Keys.Enter OrElse e.KeyCode = Keys.Down) Then
+            e.SuppressKeyPress = True
+            RaiseEvent keyDownEnterOrDown(Me, New EventArgs)
+            Return
+        End If
+
         'boxType=9の場合のみ
         If boxType = 9 AndAlso selectedIndex = 0 AndAlso EraText = "" AndAlso e.KeyCode <> Keys.Enter Then
             '現在日付をセット
@@ -1037,12 +1044,6 @@ Public Class ymdBox
             clearText()
             e.SuppressKeyPress = True
             Return
-        End If
-
-        'boxtype=9の場合のみ
-        If boxType = 9 AndAlso (e.KeyCode = Keys.Enter OrElse e.KeyCode = Keys.Down) Then
-            e.SuppressKeyPress = True
-            RaiseEvent keyDownEnterOrDown(Me, New EventArgs)
         End If
 
         If selectedIndex = 0 Then
@@ -1151,18 +1152,19 @@ Public Class ymdBox
 
         Dim selectedIndex As Integer = monthBox.SelectionStart
 
+        'boxtype=9の場合のみ
+        If boxType = 9 AndAlso (e.KeyCode = Keys.Enter OrElse e.KeyCode = Keys.Down) Then
+            e.SuppressKeyPress = True
+            RaiseEvent keyDownEnterOrDown(Me, New EventArgs)
+            Return
+        End If
+
         'boxType=9の場合のみ
         If boxType = 9 AndAlso EraText <> "" AndAlso e.KeyCode = Keys.Delete Then
             clearText()
             eraBox.Focus()
             e.SuppressKeyPress = True
             Return
-        End If
-
-        'boxtype=9の場合のみ
-        If boxType = 9 AndAlso (e.KeyCode = Keys.Enter OrElse e.KeyCode = Keys.Down) Then
-            e.SuppressKeyPress = True
-            RaiseEvent keyDownEnterOrDown(Me, New EventArgs)
         End If
 
         If selectedIndex = 0 Then
@@ -1259,18 +1261,19 @@ Public Class ymdBox
         '入力されている月の日数を取得
         Dim daysNum As Integer = getMonthDaysNum(EraText, MonthText)
 
+        'boxtype=9の場合のみ
+        If boxType = 9 AndAlso (e.KeyCode = Keys.Enter OrElse e.KeyCode = Keys.Down) Then
+            e.SuppressKeyPress = True
+            RaiseEvent keyDownEnterOrDown(Me, New EventArgs)
+            Return
+        End If
+
         'boxType=9の場合のみ
         If boxType = 9 AndAlso EraText <> "" AndAlso e.KeyCode = Keys.Delete Then
             clearText()
             eraBox.Focus()
             e.SuppressKeyPress = True
             Return
-        End If
-
-        'boxtype=9の場合のみ
-        If boxType = 9 AndAlso (e.KeyCode = Keys.Enter OrElse e.KeyCode = Keys.Down) Then
-            e.SuppressKeyPress = True
-            RaiseEvent keyDownEnterOrDown(Me, New EventArgs)
         End If
 
         If selectedIndex = 0 Then
