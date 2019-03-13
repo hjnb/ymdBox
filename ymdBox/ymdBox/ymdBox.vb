@@ -592,7 +592,7 @@ Public Class ymdBox
                 Label2.Font = New Font("MS UI Gothic", 9)
 
                 '全体
-                Me.Size = New Size(110, 21)
+                Me.Size = New Size(106, 24)
 
                 'テキストボックスのサイズ
                 eraBox.Size = New Size(27, 19)
@@ -600,25 +600,25 @@ Public Class ymdBox
                 dateBox.Size = New Size(21, 19)
 
                 'テキストボックスの位置
-                eraBox.Location = New Point(1, 1)
-                monthBox.Location = New Point(37, 1)
-                dateBox.Location = New Point(65, 1)
+                eraBox.Location = New Point(1, 2)
+                monthBox.Location = New Point(37, 2)
+                dateBox.Location = New Point(65, 2)
 
                 'ラベルの位置
-                Label1.Location = New Point(29, 8)
-                Label2.Location = New Point(58, 8)
+                Label1.Location = New Point(29, 9)
+                Label2.Location = New Point(58, 9)
 
                 'ボタンサイズ
-                btnUp.Size = New Size(12, 11)
-                btnDown.Size = New Size(12, 11)
+                btnUp.Size = New Size(13, 12)
+                btnDown.Size = New Size(13, 12)
 
                 'ボタン位置
-                btnUp.Location = New Point(96, 0)
-                btnDown.Location = New Point(96, 11)
+                btnUp.Location = New Point(93, 0)
+                btnDown.Location = New Point(93, 11)
 
                 'ボタンフォント
-                btnUp.Font = New Font("MS UI Gothic", 4)
-                btnDown.Font = New Font("MS UI Gothic", 4)
+                btnUp.Font = New Font("ＭＳ Ｐゴシック", 4)
+                btnDown.Font = New Font("ＭＳ Ｐゴシック", 4)
 
                 '表示、非表示
                 eraBox.Visible = True
