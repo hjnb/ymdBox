@@ -43,6 +43,12 @@ Public Class ymdBox
 
     Public Event keyDownEnterOrDown(ByVal sender As Object, ByVal e As EventArgs)
 
+    Public Event keyDownUp(ByVal sender As Object, ByVal e As EventArgs)
+
+    Public Event keyDownLeft(ByVal sender As Object, ByVal e As EventArgs)
+
+    Public Event keyDownRight(ByVal sender As Object, ByVal e As EventArgs)
+
     ''' <summary>
     ''' 和暦部分の文字列
     ''' </summary>
@@ -577,6 +583,57 @@ Public Class ymdBox
                 Label3.Visible = False
                 btnMonthUp.Visible = False
                 btnMonthDown.Visible = False
+            ElseIf value = 10 Then
+                '文字サイズ変更
+                eraBox.Font = New Font("MS UI Gothic", 9)
+                monthBox.Font = New Font("MS UI Gothic", 9)
+                dateBox.Font = New Font("MS UI Gothic", 9)
+                Label1.Font = New Font("MS UI Gothic", 9)
+                Label2.Font = New Font("MS UI Gothic", 9)
+
+                '全体
+                Me.Size = New Size(110, 21)
+
+                'テキストボックスのサイズ
+                eraBox.Size = New Size(27, 19)
+                monthBox.Size = New Size(21, 19)
+                dateBox.Size = New Size(21, 19)
+
+                'テキストボックスの位置
+                eraBox.Location = New Point(1, 1)
+                monthBox.Location = New Point(37, 1)
+                dateBox.Location = New Point(65, 1)
+
+                'ラベルの位置
+                Label1.Location = New Point(29, 8)
+                Label2.Location = New Point(58, 8)
+
+                'ボタンサイズ
+                btnUp.Size = New Size(12, 11)
+                btnDown.Size = New Size(12, 11)
+
+                'ボタン位置
+                btnUp.Location = New Point(96, 0)
+                btnDown.Location = New Point(96, 11)
+
+                'ボタンフォント
+                btnUp.Font = New Font("MS UI Gothic", 4)
+                btnDown.Font = New Font("MS UI Gothic", 4)
+
+                '表示、非表示
+                eraBox.Visible = True
+                monthBox.Visible = True
+                dateBox.Visible = True
+                Label1.Visible = True
+                Label2.Visible = True
+                btnUp.Visible = True
+                btnDown.Visible = True
+                dayLabel.Visible = False
+                eraLabel.Visible = False
+                monthLabel.Visible = False
+                Label3.Visible = False
+                btnMonthUp.Visible = False
+                btnMonthDown.Visible = False
             Else
                 Return
             End If
@@ -1023,6 +1080,37 @@ Public Class ymdBox
 
         Dim selectedIndex As Integer = eraBox.SelectionStart
 
+        'boxtype=10の場合のみ
+        If boxType = 10 Then
+            If e.KeyCode = Keys.Enter OrElse e.KeyCode = Keys.Down Then
+                e.SuppressKeyPress = True
+                RaiseEvent keyDownEnterOrDown(Me, New EventArgs)
+                Return
+            ElseIf e.KeyCode = Keys.Up Then
+                e.SuppressKeyPress = True
+                RaiseEvent keyDownUp(Me, New EventArgs)
+                Return
+            ElseIf (selectedIndex = 0 OrElse EraText = "") AndAlso e.KeyCode = Keys.Left Then
+                e.SuppressKeyPress = True
+                RaiseEvent keyDownLeft(Me, New EventArgs)
+                Return
+            ElseIf EraText = "" AndAlso e.KeyCode = Keys.Right Then
+                e.SuppressKeyPress = True
+                RaiseEvent keyDownRight(Me, New EventArgs)
+                Return
+            ElseIf EraText <> "" AndAlso e.KeyCode = Keys.Delete Then
+                clearText()
+                e.SuppressKeyPress = True
+                Return
+            ElseIf selectedIndex = 0 AndAlso EraText = "" Then
+                '現在日付をセット
+                setADStr(Today.ToString("yyyy/MM/dd"))
+                eraBox.Select(1, 1)
+                e.SuppressKeyPress = True
+                Return
+            End If
+        End If
+
         'boxtype=9の場合のみ
         If boxType = 9 AndAlso (e.KeyCode = Keys.Enter OrElse e.KeyCode = Keys.Down) Then
             e.SuppressKeyPress = True
@@ -1152,6 +1240,24 @@ Public Class ymdBox
 
         Dim selectedIndex As Integer = monthBox.SelectionStart
 
+        'boxtype=10の場合のみ
+        If boxType = 10 Then
+            If e.KeyCode = Keys.Enter OrElse e.KeyCode = Keys.Down Then
+                e.SuppressKeyPress = True
+                RaiseEvent keyDownEnterOrDown(Me, New EventArgs)
+                Return
+            ElseIf e.KeyCode = Keys.Up Then
+                e.SuppressKeyPress = True
+                RaiseEvent keyDownUp(Me, New EventArgs)
+                Return
+            ElseIf EraText <> "" AndAlso e.KeyCode = Keys.Delete Then
+                clearText()
+                eraBox.Focus()
+                e.SuppressKeyPress = True
+                Return
+            End If
+        End If
+
         'boxtype=9の場合のみ
         If boxType = 9 AndAlso (e.KeyCode = Keys.Enter OrElse e.KeyCode = Keys.Down) Then
             e.SuppressKeyPress = True
@@ -1260,6 +1366,28 @@ Public Class ymdBox
         Dim selectedIndex As Integer = dateBox.SelectionStart
         '入力されている月の日数を取得
         Dim daysNum As Integer = getMonthDaysNum(EraText, MonthText)
+
+        'boxtype=10の場合のみ
+        If boxType = 10 Then
+            If e.KeyCode = Keys.Enter OrElse e.KeyCode = Keys.Down Then
+                e.SuppressKeyPress = True
+                RaiseEvent keyDownEnterOrDown(Me, New EventArgs)
+                Return
+            ElseIf e.KeyCode = Keys.Up Then
+                e.SuppressKeyPress = True
+                RaiseEvent keyDownUp(Me, New EventArgs)
+                Return
+            ElseIf selectedIndex = 1 AndAlso e.KeyCode = Keys.Right Then
+                e.SuppressKeyPress = True
+                RaiseEvent keyDownRight(Me, New EventArgs)
+                Return
+            ElseIf EraText <> "" AndAlso e.KeyCode = Keys.Delete Then
+                clearText()
+                eraBox.Focus()
+                e.SuppressKeyPress = True
+                Return
+            End If
+        End If
 
         'boxtype=9の場合のみ
         If boxType = 9 AndAlso (e.KeyCode = Keys.Enter OrElse e.KeyCode = Keys.Down) Then
