@@ -49,6 +49,8 @@ Public Class ymdBox
 
     Public Event keyDownRight(ByVal sender As Object, ByVal e As EventArgs)
 
+    Public Event YmdGotFocus(ByVal sender As Object, ByVal e As EventArgs)
+
     ''' <summary>
     ''' 和暦部分の文字列
     ''' </summary>
@@ -1838,6 +1840,7 @@ Public Class ymdBox
             eraBox.Select(0, 1)
         End If
         focusedTextBoxNum = 1
+        RaiseEvent YmdGotFocus(Me, New EventArgs)
     End Sub
 
     Private Sub monthBox_GotFocus(sender As Object, e As System.EventArgs) Handles monthBox.GotFocus
@@ -1847,6 +1850,7 @@ Public Class ymdBox
         Else
             focusedTextBoxNum = 2
         End If
+        RaiseEvent YmdGotFocus(Me, New EventArgs)
     End Sub
 
     Private Sub dateBox_GotFocus(sender As Object, e As System.EventArgs) Handles dateBox.GotFocus
@@ -1856,6 +1860,7 @@ Public Class ymdBox
         Else
             focusedTextBoxNum = 3
         End If
+        RaiseEvent YmdGotFocus(Me, New EventArgs)
     End Sub
 
     Private Sub ymdBox_Load(sender As Object, e As System.EventArgs) Handles Me.Load
