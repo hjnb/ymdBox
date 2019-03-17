@@ -7,6 +7,8 @@ Imports System.Drawing
 ''' <remarks></remarks>
 Public Class ymdBox
 
+    Public canEnterKeyDown As Boolean = False
+
     Private Const VALUE_UP As Integer = 1
     Private Const VALUE_DOWN As Integer = -1
 
@@ -1082,6 +1084,13 @@ Public Class ymdBox
 
         Dim selectedIndex As Integer = eraBox.SelectionStart
 
+        If canEnterKeyDown Then
+            If e.KeyCode = Keys.Enter Then
+                RaiseEvent keyDownEnterOrDown(Me, New EventArgs)
+                Return
+            End If
+        End If
+
         'boxtype=10の場合のみ
         If boxType = 10 Then
             If e.KeyCode = Keys.Enter OrElse e.KeyCode = Keys.Down Then
@@ -1242,6 +1251,13 @@ Public Class ymdBox
 
         Dim selectedIndex As Integer = monthBox.SelectionStart
 
+        If canEnterKeyDown Then
+            If e.KeyCode = Keys.Enter Then
+                RaiseEvent keyDownEnterOrDown(Me, New EventArgs)
+                Return
+            End If
+        End If
+
         'boxtype=10の場合のみ
         If boxType = 10 Then
             If e.KeyCode = Keys.Enter OrElse e.KeyCode = Keys.Down Then
@@ -1368,6 +1384,13 @@ Public Class ymdBox
         Dim selectedIndex As Integer = dateBox.SelectionStart
         '入力されている月の日数を取得
         Dim daysNum As Integer = getMonthDaysNum(EraText, MonthText)
+
+        If canEnterKeyDown Then
+            If e.KeyCode = Keys.Enter Then
+                RaiseEvent keyDownEnterOrDown(Me, New EventArgs)
+                Return
+            End If
+        End If
 
         'boxtype=10の場合のみ
         If boxType = 10 Then
