@@ -22,8 +22,8 @@ Public Class ymdBox
     Private Const ERA_TAISYO As String = "T" '大正
     Private Const ERA_SYOWA As String = "S" '昭和
     Private Const ERA_HEISEI As String = "H" '平成
-    Private Const ERA_X As String = "X" 'まだ未定
-    Private Const ERA_X_KANJI As String = "仮仮"
+    Private Const ERA_X As String = "R" '令和
+    Private Const ERA_X_KANJI As String = "令和"
 
     '最小値、最大値
     Private Const MEIJI_MIN As String = ERA_MEIJI & "33/01/01"
