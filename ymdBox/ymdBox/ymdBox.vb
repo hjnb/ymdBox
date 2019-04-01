@@ -645,6 +645,49 @@ Public Class ymdBox
     End Property
 
     ''' <summary>
+    ''' 対象文字を選択状態にする
+    ''' </summary>
+    ''' <param name="targetIndex">選択対象文字インデックス</param>
+    ''' <remarks></remarks>
+    Public Sub setFocus(targetIndex As Integer)
+        If EraText = "" Then
+            Return
+        End If
+
+        If targetIndex = 0 Then
+            '１文字目選択
+            eraBox.Focus()
+            eraBox.Select(0, 1)
+        ElseIf targetIndex = 1 Then
+            '２文字目選択
+            eraBox.Focus()
+            eraBox.Select(1, 1)
+        ElseIf targetIndex = 2 Then
+            '３文字目選択
+            eraBox.Focus()
+            eraBox.Select(2, 1)
+        ElseIf targetIndex = 3 Then
+            '４文字目選択
+            monthBox.Focus()
+            monthBox.Select(0, 1)
+        ElseIf targetIndex = 4 Then
+            '５文字目選択
+            monthBox.Focus()
+            monthBox.Select(1, 1)
+        ElseIf targetIndex = 5 Then
+            '６文字目選択
+            dateBox.Focus()
+            dateBox.Select(0, 1)
+        ElseIf targetIndex = 6 Then
+            '７文字目選択
+            dateBox.Focus()
+            dateBox.Select(1, 1)
+        Else
+            Return
+        End If
+    End Sub
+
+    ''' <summary>
     ''' 和暦の１文字目（記号）を取得する
     ''' </summary>
     ''' <returns>和暦の１文字目（記号）</returns>
