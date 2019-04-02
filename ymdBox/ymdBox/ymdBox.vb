@@ -7,6 +7,8 @@ Imports System.Drawing
 ''' <remarks></remarks>
 Public Class ymdBox
 
+    Public canHoldDownButton As Boolean = True
+
     Public canEnterKeyDown As Boolean = False
 
     Private Const VALUE_UP As Integer = 1
@@ -2205,23 +2207,35 @@ Public Class ymdBox
     End Sub
 
     Private Sub btnUp_MouseDown(sender As Object, e As MouseEventArgs) Handles btnUp.MouseDown
-        upText()
-        Timer1.Start()
+        If canHoldDownButton Then
+            upText()
+            Timer1.Start()
+        Else
+            upText()
+        End If
     End Sub
 
     Private Sub btnUp_MouseUp(sender As Object, e As MouseEventArgs) Handles btnUp.MouseUp
-        Timer1.Stop()
-        Timer1.Interval = 500
+        If canHoldDownButton Then
+            Timer1.Stop()
+            Timer1.Interval = 500
+        End If
     End Sub
 
     Private Sub btnDown_MouseDown(sender As Object, e As MouseEventArgs) Handles btnDown.MouseDown
-        downText()
-        Timer2.Start()
+        If canHoldDownButton Then
+            downText()
+            Timer2.Start()
+        Else
+            downText()
+        End If
     End Sub
 
     Private Sub btnDown_MouseUp(sender As Object, e As MouseEventArgs) Handles btnDown.MouseUp
-        Timer2.Stop()
-        Timer2.Interval = 500
+        If canHoldDownButton Then
+            Timer2.Stop()
+            Timer2.Interval = 500
+        End If
     End Sub
 
     Private Sub Timer1_Tick(sender As Object, e As System.EventArgs) Handles Timer1.Tick
