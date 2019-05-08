@@ -2283,4 +2283,28 @@ Public Class ymdBox
         Timer4.Interval = 500
         RaiseEvent YmLabelTextChange(Me, New EventArgs)
     End Sub
+
+    Public Function getPrevYm() As String
+        If EraText = "" OrElse MonthText = "" Then
+            Return ""
+        End If
+        Dim ad As String = getADYmStr() & "/01"
+        Dim yyyy As Integer = CInt(ad.Split("/")(0))
+        Dim mm As Integer = CInt(ad.Split("/")(1))
+        Dim dd As Integer = CInt(ad.Split("/")(2))
+        Dim adDate As DateTime = New DateTime(yyyy, mm, dd)
+        Return adDate.AddMonths(-1).ToString("yyyy/MM")
+    End Function
+
+    Public Function getNextYm() As String
+        If EraText = "" OrElse MonthText = "" Then
+            Return ""
+        End If
+        Dim ad As String = getADYmStr() & "/01"
+        Dim yyyy As Integer = CInt(ad.Split("/")(0))
+        Dim mm As Integer = CInt(ad.Split("/")(1))
+        Dim dd As Integer = CInt(ad.Split("/")(2))
+        Dim adDate As DateTime = New DateTime(yyyy, mm, dd)
+        Return adDate.AddMonths(1).ToString("yyyy/MM")
+    End Function
 End Class
