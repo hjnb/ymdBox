@@ -2307,4 +2307,8 @@ Public Class ymdBox
         Dim adDate As DateTime = New DateTime(yyyy, mm, dd)
         Return adDate.AddMonths(1).ToString("yyyy/MM")
     End Function
+
+    Public Sub setFocusedTextBoxNum(num As Integer)
+        focusedTextBoxNum = num
+    End Sub
 End Class
