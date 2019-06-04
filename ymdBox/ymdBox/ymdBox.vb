@@ -41,6 +41,8 @@ Public Class ymdBox
 
     Private _boxType As Integer
 
+    Private _textReadOnly As Boolean = False
+
     Public Event YmLabelTextChange(ByVal sender As Object, ByVal e As EventArgs)
 
     Public Event YmdTextChange(ByVal sender As Object, ByVal e As EventArgs)
@@ -54,6 +56,24 @@ Public Class ymdBox
     Public Event keyDownRight(ByVal sender As Object, ByVal e As EventArgs)
 
     Public Event YmdGotFocus(ByVal sender As Object, ByVal e As EventArgs)
+
+    Public Property textReadOnly() As Boolean
+        Get
+            Return _textReadOnly
+        End Get
+        Set(ByVal value As Boolean)
+            _textReadOnly = value
+            If _textReadOnly Then
+                eraBox.ReadOnly = True
+                monthBox.ReadOnly = True
+                dateBox.ReadOnly = True
+            Else
+                eraBox.ReadOnly = False
+                monthBox.ReadOnly = False
+                dateBox.ReadOnly = False
+            End If
+        End Set
+    End Property
 
     ''' <summary>
     ''' 和暦部分の文字列
@@ -1126,7 +1146,6 @@ Public Class ymdBox
     ''' <param name="e"></param>
     ''' <remarks></remarks>
     Private Sub eraBox_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles eraBox.KeyDown
-
         Dim selectedIndex As Integer = eraBox.SelectionStart
 
         If canEnterKeyDown Then
@@ -1134,6 +1153,10 @@ Public Class ymdBox
                 RaiseEvent keyDownEnterOrDown(Me, New EventArgs)
                 Return
             End If
+        End If
+
+        If textReadOnly Then
+            Return
         End If
 
         'boxtype=10の場合のみ
@@ -1293,7 +1316,6 @@ Public Class ymdBox
     ''' <param name="e"></param>
     ''' <remarks></remarks>
     Private Sub monthBox_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles monthBox.KeyDown
-
         Dim selectedIndex As Integer = monthBox.SelectionStart
 
         If canEnterKeyDown Then
@@ -1301,6 +1323,10 @@ Public Class ymdBox
                 RaiseEvent keyDownEnterOrDown(Me, New EventArgs)
                 Return
             End If
+        End If
+
+        If textReadOnly Then
+            Return
         End If
 
         'boxtype=10の場合のみ
@@ -1425,7 +1451,6 @@ Public Class ymdBox
     ''' <param name="e"></param>
     ''' <remarks></remarks>
     Private Sub dateBox_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles dateBox.KeyDown
-
         Dim selectedIndex As Integer = dateBox.SelectionStart
         '入力されている月の日数を取得
         Dim daysNum As Integer = getMonthDaysNum(EraText, MonthText)
@@ -1435,6 +1460,10 @@ Public Class ymdBox
                 RaiseEvent keyDownEnterOrDown(Me, New EventArgs)
                 Return
             End If
+        End If
+
+        If textReadOnly Then
+            Return
         End If
 
         'boxtype=10の場合のみ
@@ -1863,6 +1892,9 @@ Public Class ymdBox
     ''' <param name="e"></param>
     ''' <remarks></remarks>
     Private Sub eraBox_MouseDoubleClick(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles eraBox.MouseDoubleClick
+        If textReadOnly Then
+            Return
+        End If
         eraBox.Select(0, 1)
         Dim calForm As calendarForm = New calendarForm(Me, getADStr())
         calForm.StartPosition = FormStartPosition.CenterScreen
@@ -1876,6 +1908,9 @@ Public Class ymdBox
     ''' <param name="e"></param>
     ''' <remarks></remarks>
     Private Sub monthBox_MouseDoubleClick(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles monthBox.MouseDoubleClick
+        If textReadOnly Then
+            Return
+        End If
         eraBox.Focus()
         eraBox.Select(0, 1)
         Dim calForm As calendarForm = New calendarForm(Me, getADStr())
@@ -1890,6 +1925,9 @@ Public Class ymdBox
     ''' <param name="e"></param>
     ''' <remarks></remarks>
     Private Sub dateBox_MouseDoubleClick(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dateBox.MouseDoubleClick
+        If textReadOnly Then
+            Return
+        End If
         eraBox.Focus()
         eraBox.Select(0, 1)
         Dim calForm As calendarForm = New calendarForm(Me, getADStr())
