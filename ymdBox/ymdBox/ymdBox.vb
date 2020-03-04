@@ -11,6 +11,8 @@ Public Class ymdBox
 
     Public canEnterKeyDown As Boolean = False
 
+    Public canMoveNextBox As Boolean = False
+
     Private Const VALUE_UP As Integer = 1
     Private Const VALUE_DOWN As Integer = -1
 
@@ -54,6 +56,8 @@ Public Class ymdBox
     Public Event keyDownLeft(ByVal sender As Object, ByVal e As EventArgs)
 
     Public Event keyDownRight(ByVal sender As Object, ByVal e As EventArgs)
+
+    Public Event keyDownEnterLastBox(ByVal sender As Object, ByVal e As EventArgs)
 
     Public Event YmdGotFocus(ByVal sender As Object, ByVal e As EventArgs)
 
@@ -1148,6 +1152,11 @@ Public Class ymdBox
     Private Sub eraBox_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles eraBox.KeyDown
         Dim selectedIndex As Integer = eraBox.SelectionStart
 
+        If canMoveNextBox AndAlso EraText <> "" AndAlso e.KeyCode = Keys.Enter Then
+            monthBox.Focus()
+            monthBox.Select(0, 1)
+        End If
+
         If canEnterKeyDown Then
             If e.KeyCode = Keys.Enter Then
                 RaiseEvent keyDownEnterOrDown(Me, New EventArgs)
@@ -1318,6 +1327,11 @@ Public Class ymdBox
     Private Sub monthBox_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles monthBox.KeyDown
         Dim selectedIndex As Integer = monthBox.SelectionStart
 
+        If canMoveNextBox AndAlso EraText <> "" AndAlso e.KeyCode = Keys.Enter Then
+            dateBox.Focus()
+            dateBox.Select(0, 1)
+        End If
+
         If canEnterKeyDown Then
             If e.KeyCode = Keys.Enter Then
                 RaiseEvent keyDownEnterOrDown(Me, New EventArgs)
@@ -1454,6 +1468,11 @@ Public Class ymdBox
         Dim selectedIndex As Integer = dateBox.SelectionStart
         '入力されている月の日数を取得
         Dim daysNum As Integer = getMonthDaysNum(EraText, MonthText)
+
+        If canMoveNextBox AndAlso EraText <> "" AndAlso e.KeyCode = Keys.Enter Then
+            RaiseEvent keyDownEnterLastBox(Me, New EventArgs)
+            Return
+        End If
 
         If canEnterKeyDown Then
             If e.KeyCode = Keys.Enter Then
